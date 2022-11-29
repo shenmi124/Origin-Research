@@ -10,12 +10,27 @@ function getBuildingID(id,use_name){
 
 function Build(id){
     let max = 0
+    let canbuy = true
     for(let col=0;col<=max;col++){
-        if(main['building'][id]['cost']()[col][0]!=undefined){
-            max++
-            player[main['building'][id]['cost']()[col][0]] = player[main['building'][id]['cost']()[col][0]].sub(player[main['building'][id]['cost']()[col][1]])
-            player['building'+id] = player['building'+id].add(1)
+        if(main['building'][id]['cost']()[col]!=undefined){ 
+            if(main['building'][id]['cost']()[col][0]!=undefined){
+                max++
+                if(player[main['building'][id]['cost']()[col][0]].lt(main['building'][id]['cost']()[col][1])){
+                    canbuy = false
+                }
+            }
         }
+    }    
+    for(let col=0;col<=max;col++){
+        if(main['building'][id]['cost']()[col]!=undefined && canbuy==true){ 
+            if(main['building'][id]['cost']()[col][0]!=undefined){
+                max++
+                player[main['building'][id]['cost']()[col][0]] = player[main['building'][id]['cost']()[col][0]].sub(main['building'][id]['cost']()[col][1])
+            }
+        }
+    }
+    if(canbuy==true){
+        player['building'+id] = player['building'+id].add(1)
     }
 }
 

@@ -1,7 +1,3 @@
-function onClick(){
-
-}
-
 var main = {
     resource:{
         ResearchPoint:{
@@ -28,7 +24,7 @@ var main = {
         dirt:{
             name(){return '泥土'},
             color(){return '#cf7004'},
-            max(){return n(10).add(maxGainStoneWall()[0])},
+            max(){return n(10).add(maxGainStoneWall()[0]).add(maxGainStoneWall()[0])},
             gain(){return n(dirtGainWithHands())},
             PR(){return n(1)},
             tooltip(){
@@ -40,7 +36,7 @@ var main = {
         grass:{
             name(){return '草'},
             color(){return '#4DF10C'},
-            max(){return n(20).add(garssGainGrassGarden()[1]).add(maxGainStoneWall()[1])},
+            max(){return n(20).add(garssGainGrassGarden()[1]).add(maxGainStoneWall()[1]).add(maxGainStoneWall()[1])},
             gain(){return n(garssGainGrassGarden()[0]).mul(garssGainMul()[0]).mul(garssGainMul()[1])},
             PR(){return n(1.5)},
             tooltip(){
@@ -62,7 +58,7 @@ var main = {
                 let all = "总计:("+format(this.gain())+'/秒)'
                 return "其实只是一些小石子<hr>"+all
             },
-            unlocked(){return player['Research0-3-0-2Lv'].gte(1)},
+            unlocked(){return player['Research0-3-0-1Lv'].gte(1)},
         },
         flint:{
             name(){return '燧石'},
@@ -74,7 +70,7 @@ var main = {
                 let all = "总计:("+format(this.gain())+'/秒)'
                 return "十分锋利的小石子,或许可以做些工具<hr>"+all
             },
-            unlocked(){return player['Research0-3-0-2Lv'].gte(1)},
+            unlocked(){return player['Research0-3-0-1Lv'].gte(1)},
         },
         wood:{
             name(){return '木头'},
@@ -136,7 +132,7 @@ var main = {
         1:{
             name(){return '草园'},
             unlocked(){return player['Research0-3-0-2Lv'].gte(1)},
-            cost(){return [['dirt',n(4).pow(player.building1.mul(0.65).add(1))]]},
+            cost(){return [['dirt',n(4).pow(player.building1.mul(0.35).add(1))]]},
             tooltip(){
                 let top = "<div style='text-align: left;'><hr>"
                 let suda = format(garssGainGrassGarden()[0])+colorText('grass')[2]+"/秒(初始+0.5)<br>"
@@ -148,7 +144,7 @@ var main = {
         2:{
             name(){return '石墙'},
             unlocked(){return player['Research0-3-0-3Lv'].gte(1)},
-            cost(){return [['dirt',n(5).pow(player.building2.mul(0.82).add(1))],['stone',n(3).pow(player.building2.mul(0.77).add(1))]]},
+            cost(){return [['dirt',n(5).pow(player.building2.mul(0.52).add(1))],['stone',n(3).pow(player.building2.mul(0.47).add(1))]]},
             tooltip(){
                 let top = "<div style='text-align: left;'><hr>"
                 let suda = format(maxGainStoneWall()[0])+colorText('dirt')[2]+"上限(初始40)<br>"

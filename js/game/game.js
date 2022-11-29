@@ -40,7 +40,7 @@ function garssGainGrassGarden(){
 }
 
 function maxGainStoneWall(){
-    return [player['res-0-1-1-2'].mul(40).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1)),player['res-0-1-1-2'].mul(30).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1))]
+    return [player.building2.mul(40).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1)),player.building2.mul(30).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1))]
 }
 
 function garssGainMul(){
