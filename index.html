@@ -1,0 +1,190 @@
+<html>
+
+<head>
+	<title>起源科技</title>
+	<meta charset="utf-8">
+	
+	<script src="js/number/break_eternity.js"></script>
+	<script src="js/number/LZString.js"></script>
+	
+	<script src="js/game/main.js"></script>
+	
+	<script src="js/load/save.js"></script>
+	<script src="js/load/jQ.js"></script>
+	<script src="js/game/player.js"></script>
+	<script src="js/load/load.js"></script>
+	<script src="js/number/format.js"></script>
+	<script src="js/load/js.js"></script>
+	<script src="js/load/tab.js"></script>
+	<script src="js/load/canvas.js"></script>
+
+	<script src="js/setting/pointer.js"></script>
+	<script src="js/setting/setting.js"></script>
+
+	<script src="js/game/function/tooltip.js"></script>
+	<script src="js/game/function/building.js"></script>
+	<script src="js/game/function/base.js"></script>
+	<script src="js/game/function/resource.js"></script>
+	<script src="js/game/function/other.js"></script>
+	<script src="js/game/function/researchResource.js"></script>
+	<script src="js/game/function/action.js"></script>
+
+	<script src="js/game/tree.js"></script>
+	<script src="js/game/game.js"></script>
+	<script src="js/game/workshop.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="css/css.css"/>
+	<link rel="stylesheet" type="text/css" href="css/resource.css"/>
+	
+</head>
+
+<body onscroll="resizeCanvas()">
+	<canvas id="treeCanvas" class="canvas"></canvas>
+	<div class="version" style="margin-right: 13px;">v0.0</div>
+	<div id="game">
+		<div id="leftColumn" class="column" style="vertical-align: top;">
+			<a id="loadResource"></a>
+		</div>
+		<div id="midColumn" class="column" style="vertical-align: top">
+			<button class="maintab" onclick="showTab('main')">主页面</button>
+			<button class="maintab" onclick="showTab('research')">研究</button>
+			<button class="maintab" onclick="showTab('tree')">科技树</button>
+			<button id="tab_workshop_unlocked" class="maintab" onclick="showTab('workshop')">工坊</button>
+			<button class="maintab" onclick="showTab('setting')">设置</button>
+			<br>
+			<mainTab id="tab_setting" style="display: none;">
+				<br>
+				<tr>
+					<button onclick="autoSave()" style="width:200px;height:55px">自动保存:<a id="autoSaveID"></a></button>
+					<button onclick="prompt('下面是你的存档:',saveStr)" id="export" style="width:200px;height:55px">导出</button>
+					<button onclick="load(prompt('输入存档:'))" id="import" style="width:200px;height:55px">导入</button>  
+					<button onclick="save()" style="width:200px;height:55px">保存<a id="autoSaveID"></a></button>
+				</tr><br><br>
+				<tr>
+					<button onclick="if(!!confirm('你确定要硬重置吗?这样你将失去一切!!!')){if(!!confirm('这个存档将永远失去!(很长时间!)')){toClearSave = true}}" id="export"  style="width:200px;height:55px">硬重置</button>
+					<a href="https://afdian.net/@Mysterious124" target="_blank"><button id="import" style="width:200px;height:55px">捐助作者</button></a>
+					<tooltip id="noneButtonID"><button onclick="noneButtonID()" style="width:200px;height:55px">显示按钮ID:<a id="noneButtonIDID"></a></button></tooltip>
+				</tr>
+			</mainTab>
+			<mainTab id="tab_main">
+				行动<br>
+				<a id="loadAction"></a>
+				<br><br><a id="res-0-1-1-0ID">建筑</a><br>
+				<a id="loadBuilding"></a>
+			</mainTab>
+			<mainTab id="tab_research" style="display: none;">
+				研究<br>
+				<a id="loadResearchResource"></a>
+			</mainTab>
+			<mainTab id="tab_tree" style="display: none;">
+				科技树<br>
+				<tooltip id="treeTip"><button class="maintab" onclick="rollResearch()">分配</button></tooltip><br>
+				<div style="display: table-cell;">
+					<table cellpadding="8"  style="font-family: Typewriter;">
+						<tr>
+							<td></td><!---1--->
+							<td></td><!---2--->
+							<td></td><!---3--->
+							<td></td><!---4--->
+							<td></td><!---5--->
+							<td><tooltip id='res-0-3-0-1'></tooltip></td><!---6--->
+							<td><tooltip id='res-0-3-0-2'></tooltip></td><!---7--->
+							<td></td><!---8--->
+							<td></td><!---9--->
+							<td></td><!---10--->
+							<td></td><!---11--->
+						</tr>
+						<tr>
+							<td></td><!---1--->
+							<td></td><!---2--->
+							<td></td><!---3--->
+							<td></td><!---4--->
+							<td></td><!---5--->
+							<td><tooltip id='res-0-3-0-3'></tooltip></td><!---6--->
+							<td><tooltip id='res-0-3-0-4'></tooltip></td><!---7--->
+							<td></td><!---8--->
+							<td></td><!---9--->
+							<td></td><!---10--->
+							<td></td><!---11--->
+						</tr>
+						<tr>
+							<td></td><!---1--->
+							<td></td><!---2--->
+							<td></td><!---3--->
+							<td></td><!---4--->
+							<td></td><!---5--->
+							<td><tooltip id='res-0-3-0-5'></tooltip></td><!---6--->
+							<td></td><!---7--->
+							<td><tooltip id='res-0-3-0-6'></tooltip></td><!---8--->
+							<td></td><!---9--->
+							<td></td><!---10--->
+							<td></td><!---11--->
+						</tr>
+						<tr>
+							<td></td><!---1--->
+							<td></td><!---2--->
+							<td></td><!---3--->
+							<td></td><!---4--->
+							<td></td><!---5--->
+							<td><tooltip id='res-0-3-0-7'></tooltip></td><!---6--->
+							<td><tooltip id='res-0-3-0-8'></tooltip></td><!---7--->
+							<td></td><!---8--->
+							<td></td><!---9--->
+							<td></td><!---10--->
+							<td></td><!---11--->
+						</tr>
+						<tr>
+							<td></td><!---1--->
+							<td></td><!---2--->
+							<td></td><!---3--->
+							<td></td><!---4--->
+							<td></td><!---5--->
+							<td><tooltip id='res-0-3-0-9'></tooltip></td><!---6--->
+							<td><tooltip id='res-0-3-0-10'></tooltip></td><!---7--->
+							<td><tooltip id='res-0-3-0-11'></tooltip></td><!---8--->
+							<td><tooltip id='res-0-3-0-12'></tooltip></td><!---9--->
+							<td></td><!---10--->
+							<td></td><!---11--->
+						</tr>
+						<tr>
+							<td></td><!---1--->
+							<td></td><!---2--->
+							<td></td><!---3--->
+							<td></td><!---4--->
+							<td><tooltip id='res-0-3-0-13'></tooltip></td><!---5--->
+							<td><tooltip id='res-0-3-0-14'></tooltip></td><!---6--->
+							<td></td><!---7--->
+							<td><tooltip id='res-0-3-0-15'></tooltip></td><!---8--->
+							<td><tooltip id='res-0-3-0-16'></tooltip></td><!---9--->
+							<td></td><!---10--->
+							<td></td><!---11--->
+						</tr>
+						<tr>
+							<td></td><!---1--->
+							<td></td><!---2--->
+							<td></td><!---3--->
+							<td><tooltip id='res-0-3-0-17'></tooltip></td><!---4--->
+							<td></td><!---5--->
+							<td></td><!---6--->
+							<td></td><!---7--->
+							<td></td><!---8--->
+							<td></td><!---9--->
+							<td></td><!---10--->
+							<td></td><!---11--->
+						</tr>
+					</table>
+				</div>
+			</mainTab>
+			<mainTab id="tab_workshop" style="display: none;">
+				工坊<br>
+				<a id="res-0-4-0-1loadResource"></a>
+			</mainTab>
+		</div>
+		<div id="rightColumn" class="column" style="vertical-align: top;">
+		</div>
+	</div>
+	
+	<div id="tooltip" class="button_tooltip" style="display: none; padding-bottom: 8px; border-bottom: 1px solid gray; text-align: center;"></div>
+</body>
+
+</html>
