@@ -53,8 +53,7 @@ button:hover {
 }
 
 #leftColumn {
-    width: 30%;
-    min-width: 300px;
+    width: 400px;
     padding-right: 20px;
     overflow-y: auto;
 }

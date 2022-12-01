@@ -113,7 +113,7 @@ var main = {
         },
         4:{
             name(){return '打磨石头'},
-            onClick(){return 'polishedStone()'},
+            onClick(){polishedStone()},
             tooltip(){
                 let cost = "消耗:<br>"+format(player.stone)+"/2"+colorText('stone')[2]+"<br>获得:<br>"+colorText('flint')[2]+"("+format(n(1).mul(player['Research0-3-0-5Lv'].mul(0.25).add(1)))+")"
                 let a = player['Research0-3-0-7Lv'].gte(1) ? "<br>"+colorText('sand')[2]+"("+format(n(0.1).mul(player['Research0-3-0-5Lv'].mul(0.25).add(1)))+")" : ''
@@ -123,7 +123,7 @@ var main = {
         },
         5:{
             name(){return '挖掘'},
-            onClick(){return 'diging()'},
+            onClick(){diging()},
             tooltip(){return "挖掘<hr><small>挖掘...<hr>获得:1"+colorText('stone')[2]},
             unlocked(){return player['Research0-3-0-12Lv'].gte(1)},
         },
@@ -154,4 +154,13 @@ var main = {
             },
         },
     },
+}
+
+var mainTree = {
+    main:{
+        1:{
+            name(){return '泥土工艺'},
+            map(){},
+        }
+    }
 }

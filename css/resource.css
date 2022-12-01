@@ -1,6 +1,5 @@
 .resource-title.resource-name {
-    width: 60px;
-    max-width: 85px;
+    width: 100px;
 }
 .resource-title {
     padding-left: 2px;
