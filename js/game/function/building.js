@@ -25,7 +25,11 @@ function Build(id){
         if(main['building'][id]['cost']()[col]!=undefined && canbuy==true){ 
             if(main['building'][id]['cost']()[col][0]!=undefined){
                 max++
-                player[main['building'][id]['cost']()[col][0]] = player[main['building'][id]['cost']()[col][0]].sub(main['building'][id]['cost']()[col][1])
+                if(main['building'][id]['cost']()[col][2]!=undefined){
+                    if(main['building'][id]['cost']()[col][2]!=false){
+                        player[main['building'][id]['cost']()[col][0]] = player[main['building'][id]['cost']()[col][0]].sub(main['building'][id]['cost']()[col][1])
+                    }
+                }
             }
         }
     }

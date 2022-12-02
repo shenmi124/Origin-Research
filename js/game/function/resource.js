@@ -61,21 +61,25 @@ function getResourceID(id,res_name){
 }
 
 function resourceAction(id){
-	if(main['resource'][id]['gain']!=undefined){
-		let gain = main['resource'][id]['gain']()
-		player[id] = player[id].add(n(gain).mul(diff))
-	}
-	if(main['resource'][id]['PR']!=undefined){
-		let PR = main['resource'][id]['PR']()
-		player[id+'PR'] = n(PR)
-	}
-	if(main['resource'][id]['max']!=undefined){
-		let max = main['resource'][id]['max']()
-		if(id!='ResearchPoint' && id!='ResearchTimes'){player[id] = player[id].min(max).max(0)}
-		if(id=='ResearchPoint' && player[id].gte(max)){
-			player.ResearchPoint = player.ResearchPoint.sub(main['resource']['ResearchPoint']['max']())
-			player.ResearchTimes = player.ResearchTimes.add(1)
-			player.ResearchAllTimes = player.ResearchAllTimes.add(1)
+	if(main['resource'][id]['number']!=undefined){
+		player[id] = n(main['resource'][id]['number']())
+	}else{
+		if(main['resource'][id]['gain']!=undefined){
+			let gain = main['resource'][id]['gain']()
+			player[id] = player[id].add(n(gain).mul(diff))
+		}
+		if(main['resource'][id]['PR']!=undefined){
+			let PR = main['resource'][id]['PR']()
+			player[id+'PR'] = n(PR)
+		}
+		if(main['resource'][id]['max']!=undefined){
+			let max = main['resource'][id]['max']()
+			if(id!='ResearchPoint' && id!='ResearchTimes'){player[id] = player[id].min(max).max(0)}
+			if(id=='ResearchPoint' && player[id].gte(max)){
+				player.ResearchPoint = player.ResearchPoint.sub(main['resource']['ResearchPoint']['max']())
+				player.ResearchTimes = player.ResearchTimes.add(1)
+				player.ResearchAllTimes = player.ResearchAllTimes.add(1)
+			}
 		}
 	}
 }
