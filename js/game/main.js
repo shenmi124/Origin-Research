@@ -36,15 +36,21 @@ var main = {
         grass:{
             name(){return '草'},
             color(){return '#4DF10C'},
-            max(){return n(20).add(garssGainGrassGarden()[1]).add(maxGainStoneWall()[1]).add(maxGainStoneWall()[1])},
+            max(){return n(20).add(garssGainGrassGarden()[1]).add(maxGainStoneWall()[1])},
             gain(){return n(garssGainGrassGarden()[0]).mul(garssGainMul()[0]).mul(garssGainMul()[1])},
             PR(){return n(1.5)},
             tooltip(){
-                let a = n(garssGainGrassGarden()[0]).gt(0) ? "来自建筑(草园):("+format(garssGainGrassGarden()[0])+"/秒)<br>" : ""
+                let gain = '总计生产:<br>'
+                let a = n(garssGainGrassGarden()[0]).gt(0) ? "来自建筑(草园):(+"+format(garssGainGrassGarden()[0])+"/秒)<br>" : ""
                 let b = n(garssGainMul()[0]).gt(1) ? "来自研究(燧石打磨):(×"+format(garssGainMul()[0])+")<br>" : ""
                 let c = n(garssGainMul()[1]).gt(1) ? "来自研究(混合土壤):(×"+format(garssGainMul()[1])+")<br>" : ""
-                let all = "总计:("+format(this.gain())+'/秒)'
-                return "绿色的青草,或许可以做些有用的东西<hr>"+a+b+c+all
+                let gainAll = "总计:(+"+format(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+20.00)<br>"
+                let b2 = n(garssGainGrassGarden()[1]).gt(0) ? "来自建筑(草园):(+"+format(garssGainGrassGarden()[1])+")<br>" : ""
+                let c2 = n(maxGainStoneWall()[1]).gt(0) ? "来自建筑(石墙):(+"+format(maxGainStoneWall()[1])+")<br>" : ""
+                let maxAll = "总计:(+"+format(this.max())+')'
+                return "绿色的青草,或许可以做些有用的东西<hr>"+gain+a+b+c+gainAll+max+a2+b2+c2+maxAll
             },
             unlocked(){return player['Research0-3-0-2Lv'].gte(1)},
         },
@@ -97,9 +103,8 @@ var main = {
             name(){return '筛土'},
             onClick(){dirtSieve()},
             tooltip(){
-                let cost = '泥土从你的手中漏出后有时会剩下一些石子和燧石<hr>消耗:<br>'+format(player.dirt)+"/5"+colorText('dirt')[2]
-                let a = "<br>获得:<br>"+colorText('dirt')[2]+"(30%)(1~3)<br>"+colorText('stone')[2]+"(25%)(1~2)<br>"+colorText('flint')[2]+"(20%)(1)"
-                return cost+a
+                let cost = '泥土从你的手中漏出后有时会剩下一些石子和燧石...<hr>消耗:<br>'+format(player.dirt)+"/5"+colorText('dirt')[2]
+                return cost
             },
             unlocked(){return player['Research0-3-0-1Lv'].gte(1)},
         },
@@ -137,8 +142,8 @@ var main = {
             cost(){return [['dirt',n(4).pow(player.building1.mul(0.35).add(1))]]},
             tooltip(){
                 let top = "<div style='text-align: left;'><hr>"
-                let suda = format(garssGainGrassGarden()[0])+colorText('grass')[2]+"/秒(+0.2)<br>"
-                let sudb = format(garssGainGrassGarden()[1])+colorText('grass')[2]+"上限(+10)"
+                let suda = format(garssGainGrassGarden()[0])+colorText('grass')[2]+"/秒("+format(garssBaseGrassGarden()[0])+")<br>"
+                let sudb = format(garssGainGrassGarden()[1])+colorText('grass')[2]+"上限("+format(garssBaseGrassGarden()[1])+")"
                 let fin = "</div>"
                 return "精选的泥土做出的草园,在这里草才可以生长<small>"+top+suda+sudb+fin
             },
@@ -149,8 +154,8 @@ var main = {
             cost(){return [['dirt',n(5).pow(player.building2.mul(0.52).add(1))],['stone',n(3).pow(player.building2.mul(0.47).add(1))]]},
             tooltip(){
                 let top = "<div style='text-align: left;'><hr>"
-                let suda = format(maxGainStoneWall()[0])+colorText('dirt')[2]+"上限(初始40)<br>"
-                let sudb = format(maxGainStoneWall()[1])+""+colorText('grass')[2]+"上限(初始30)</div>"
+                let suda = format(maxGainStoneWall()[0])+colorText('dirt')[2]+"上限("+format(maxBaseStoneWall()[0])+")<br>"
+                let sudb = format(maxGainStoneWall()[1])+""+colorText('grass')[2]+"上限("+format(maxBaseStoneWall()[1])+")</div>"
                 let fin = "</div>"
                 return "混杂着很多土的墙,可以围住草和泥土<br><br><small><i><div style='text-align: right; color: #888'>————所以为什么不叫土墙</div></i>"+top+suda+sudb+fin
             },

@@ -48,12 +48,20 @@ function dirtSieve(){
     }
 }
 
+function garssBaseGrassGarden(){
+    return [n(0.2),n(10)]
+}
+
 function garssGainGrassGarden(){
-    return [player.building1.mul(0.2),player.building1.mul(10)]
+    return [player.building1.mul(garssBaseGrassGarden()[0]),player.building1.mul(garssBaseGrassGarden()[1])]
+}
+
+function maxBaseStoneWall(){
+    return [n(1).mul(20).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1)),n(1).mul(15).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1))]
 }
 
 function maxGainStoneWall(){
-    return [player.building2.mul(40).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1)),player.building2.mul(30).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1))]
+    return [player.building2.mul(maxBaseStoneWall()[0]),player.building2.mul(maxBaseStoneWall()[1])]
 }
 
 function garssGainMul(){
