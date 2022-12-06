@@ -18,25 +18,38 @@ function dirtSieve(){
     if(player.dirt.gte(dirtSieveCost())){
         player.dirt = player.dirt.sub(dirtSieveCost())
 
+        let log = '你筛出了'
+
         let a = Math.floor(Math.random() * 100)+1
         if(a<=dirtSieveProbability()[0]){
-            player.dirt = player.dirt.add(Math.floor(Math.random() * dirtSieveAmount()[0])+1).min(main['resource']['dirt']['max']())
+            let numa = Math.floor(Math.random() * dirtSieveAmount()[0])+1
+            player.dirt = player.dirt.add(numa).min(main['resource']['dirt']['max']())
+            log += '<br>'+numa+colorText('dirt')[2]
         }
 
         let b = Math.floor(Math.random() * 100)+1
         if(b<=dirtSieveProbability()[1]){
-            player.stone = player.stone.add(Math.floor(Math.random() * dirtSieveAmount()[1])+1).min(main['resource']['stone']['max']())
+            let numb = Math.floor(Math.random() * dirtSieveAmount()[1])+1
+            player.stone = player.stone.add(numb).min(main['resource']['stone']['max']())
+            log += '<br>'+numb+colorText('stone')[2]
         }
 
         let c = Math.floor(Math.random() * 100)+1
         if(c<=dirtSieveProbability()[2]){
-            player.flint = player.flint.add(Math.floor(Math.random() * dirtSieveAmount()[2])+1).min(main['resource']['flint']['max']())
+            let numc = Math.floor(Math.random() * dirtSieveAmount()[2])+1
+            player.flint = player.flint.add(numc).min(main['resource']['flint']['max']())
+            log += '<br>'+numc+colorText('flint')[2]
+        }
+        if(log=='你筛出了'){
+            addLog('你什么都没有筛出')
+        }else{
+            addLog(log)
         }
     }
 }
 
 function garssGainGrassGarden(){
-    return [player.building1.mul(0.5),player.building1.mul(20)]
+    return [player.building1.mul(0.2),player.building1.mul(10)]
 }
 
 function maxGainStoneWall(){

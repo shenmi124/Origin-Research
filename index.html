@@ -17,6 +17,7 @@
 	<script src="js/load/js.js"></script>
 	<script src="js/load/tab.js"></script>
 	<script src="js/load/canvas.js"></script>
+	<script src="js/load/log.js"></script>
 
 	<script src="js/setting/pointer.js"></script>
 	<script src="js/setting/setting.js"></script>
@@ -40,7 +41,8 @@
 
 <body onscroll="resizeCanvas()">
 	<canvas id="treeCanvas" class="canvas"></canvas>
-	<div class="version" style="margin-right: 13px;">v0.001</div>
+	<a href="upload.html" target="_blank" class="version">v0.01</a>
+	<a href="https://afdian.net/@Mysterious124" target="_blank" class="donate">点我捐助</a>
 	<div id="game">
 		<div id="leftColumn" class="column" style="vertical-align: top;">
 			<a id="loadResource"></a>
@@ -62,8 +64,6 @@
 				</tr><br><br>
 				<tr>
 					<button onclick="if(!!confirm('你确定要硬重置吗?这样你将失去一切!!!')){if(!!confirm('这个存档将永远失去!(很长时间!)')){toClearSave = true}}" id="export"  style="width:200px;height:55px">硬重置</button>
-					<a href="https://afdian.net/@Mysterious124" target="_blank"><button id="import" style="width:200px;height:55px">捐助作者</button></a>
-					<tooltip id="noneButtonID"><button onclick="noneButtonID()" style="width:200px;height:55px">显示按钮ID:<a id="noneButtonIDID"></a></button></tooltip>
 				</tr>
 			</mainTab>
 			<mainTab id="tab_main">
@@ -180,11 +180,12 @@
 				<a id="res-0-4-0-1loadResource"></a>
 			</mainTab>
 		</div>
-		<div id="rightColumn" class="column" style="vertical-align: top;">
+	</div>
+	<div id="rightColumn" class="column" style="vertical-align: top;">
+		<div class="log">
+			<div id="loadLog"></div>
 		</div>
 	</div>
-	
 	<div id="tooltip" class="button_tooltip" style="display: none; padding-bottom: 8px; border-bottom: 1px solid gray; text-align: center;"></div>
 </body>
-
 </html>

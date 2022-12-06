@@ -32,6 +32,8 @@ function getWorBtoID(id,action,use_name){
 }
 
 function getID(){
+	loadLog()
+
 	for(i in main['resource']){
 		getResourceID(i+'LoadResource',i)
 		resourceAction(i)
@@ -70,12 +72,15 @@ function getID(){
 	}
 
 	document.getElementById("midColumn").style.height = window.innerHeight-17
+	document.body.style.setProperty('--height', window.innerHeight-37);
+	document.body.style.setProperty('--midWidth', (window.innerWidth-400)*0.7);
+	document.body.style.setProperty('--logWidth', (window.innerWidth-400)*0.25);
 
 
 	let w = 4
-	if(window.innerWidth<1400){w = 3}
-	if(window.innerWidth<1200){w = 2}
-	if(window.innerWidth<950){w = 1}
+	if((window.innerWidth-400)*0.7<1000){w = 3}
+	if((window.innerWidth-400)*0.7<750){w = 2}
+	if((window.innerWidth-400)*0.7<500){w = 1}
 
 	let actionBr = -1
 	for(i in main['action']){
@@ -136,7 +141,6 @@ function getID(){
 	}
 
 	getNotNumDoc("autoSave",player.autoSave=="true" ? "开" : "关")
-	getNotNumDoc("noneButtonID",player.noneButtonID=="true" ? "开" : "关")
 }
 
 setInterval(function(){

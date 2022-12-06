@@ -88,7 +88,9 @@ var main = {
     action:{
         1:{
             name(){return '采集泥土'},
-            onClick(){player.dirt=player.dirt.add(1)},
+            onClick(){
+                player.dirt=player.dirt.add(1)
+            },
             tooltip(){return "泥土从你的手中漏出<br>(提示:<a style='color:red'>将鼠标对准资源名称可查看更多信息</a>)"},
         },
         2:{
@@ -135,8 +137,8 @@ var main = {
             cost(){return [['dirt',n(4).pow(player.building1.mul(0.35).add(1))]]},
             tooltip(){
                 let top = "<div style='text-align: left;'><hr>"
-                let suda = format(garssGainGrassGarden()[0])+colorText('grass')[2]+"/秒(初始+0.5)<br>"
-                let sudb = format(garssGainGrassGarden()[1])+colorText('grass')[2]+"上限(初始+20)"
+                let suda = format(garssGainGrassGarden()[0])+colorText('grass')[2]+"/秒(+0.2)<br>"
+                let sudb = format(garssGainGrassGarden()[1])+colorText('grass')[2]+"上限(+10)"
                 let fin = "</div>"
                 return "精选的泥土做出的草园,在这里草才可以生长<small>"+top+suda+sudb+fin
             },

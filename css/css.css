@@ -25,8 +25,20 @@ button:hover {
 
 .version {
 	position: absolute;
+    left: 4px;
+    bottom: 4px;
+    text-align: right;
+	font-family: verdana;
+	color:#000000;
+	text-shadow: 0 0 10px #000000;
+	border-radius: 9px;
+	font-size: 15px;
+}
+
+.donate {
+	position: absolute;
     right: 4px;
-    top: 4px;
+    bottom: 4px;
     text-align: right;
 	font-family: verdana;
 	color:#000000;
@@ -66,22 +78,23 @@ button:hover {
 }
 
 #midColumn {
-    width: 1030px;
-    height:100%;
+    width: var(--midWidth);
+    height: var(--height);
     overflow-x: auto;
     overflow-y: auto;
 }
 
 #rightColumn {
     padding-right: 20px;
+    float: right;
     overflow-y: auto;
 }
 
 #game {
     position: absolute;
     margin: 0 auto;
-    height: auto;
     white-space: nowrap;
+    height:var(--height);
 }
 
 .maintab {
@@ -123,4 +136,13 @@ button:hover {
     height:23px;
     position: absolute; 
     border-radius: 20px;
+}
+
+.log {
+    width:var(--logWidth);
+    height:var(--height);
+    border-radius: 3px;
+    border: 2px solid black;
+    overflow-x: auto;
+    overflow-y: auto;
 }

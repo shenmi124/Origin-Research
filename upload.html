@@ -1,0 +1,70 @@
+<html>
+
+<head>
+	<title>起源科技(更新日志)</title>
+	<meta charset="utf-8">
+
+    <style>
+        body {
+            font-family: verdana;
+            font-size: 16px;
+            cursor: default;
+        }
+    </style>
+    <script>
+        document.oncontextmenu = function(event){
+            event.preventDefault()
+        }
+
+        if(document.all){
+            document.onselectstart = function(){
+                return false
+            }
+        }else{
+            document.onmousedown = function(){
+                return false
+            }
+            document.onmouseup = function(){
+                return true
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="text-align: center;">
+        <br>
+        <h1>起源科技</h1>
+    </div>
+    <div style="position: absolute; left: 33%;">
+        <h3>目标:</h3>
+        <br><s>资源基础逻辑</s>
+        <br><s>保存</s>
+        <br><s>资源模板</s>
+        <br><s>资源进度条</s>
+        <br><s>选项卡</s>
+        <br><s>建筑模板</s>
+        <br><s>研究模板</s>
+        <br><s>设置</s>
+        <br><s>日志</s>
+        <li>工坊
+        <br><s>更新日志</s>
+        <li>科技树
+        <li>选项卡UI
+        <li>选项卡模板
+        <br><s>主页UI</s>
+        <li>设置UI
+        <li>资源过滤
+        <li>日志UI
+        <li>日志分类
+        <li>建筑数量浮层
+        <li>建筑资源生产预览
+        <br><s>页面布局</s>
+        <li>更多设置
+    </div>
+    <div style="position: absolute; left: 60%; text-align: center;">
+        <h3>更新日志:</h3>
+        v0.01<br>
+        完成了最基础的模板以及日志
+    </div>
+</body>
+</html>

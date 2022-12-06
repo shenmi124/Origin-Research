@@ -17,6 +17,7 @@ function Build(id){
                 max++
                 if(player[main['building'][id]['cost']()[col][0]].lt(main['building'][id]['cost']()[col][1])){
                     canbuy = false
+                    addLog('你还差'+format(n(main['building'][id]['cost']()[col][1]).sub(player[main['building'][id]['cost']()[col][0]]))+colorText(main['building'][id]['cost']()[col][0])[2])
                 }
             }
         }

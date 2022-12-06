@@ -83,11 +83,6 @@ function firstTab(){
 	if(tab==true){
 		fistLoad()
 
-		/*getActionID('res-0-1-1-1',"Build('res-0-1-1-1')",'草园')
-		getActionID('res-0-1-1-2',"Build('res-0-1-1-2')",'石墙')
-
-		getActionID('res-0-4-0-1','work(["wood"],[10],["timber"],[1],[0,0])','制作木料')*/
-
 		getTooltipID('res-0-3-0-1','泥土工艺')
 		getTooltipID('res-0-3-0-2','肥沃土壤')
 		getTooltipID('res-0-3-0-3','石墙')
@@ -180,10 +175,4 @@ function showTab(id){
 	}else{
 		Close('tab_workshop')
 	}
-}
-
-function showTabMain(id){
-}
-
-function showTabMainSub(id){
 }
