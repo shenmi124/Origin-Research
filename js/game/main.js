@@ -6,9 +6,12 @@ var main = {
             max(){return n(12).mul(player.ResearchAllTimes.add(1)).pow(player.ResearchAllTimes.div(50).add(1))},
             gain(){return n(0)},
             tooltip(){
-                let spa = "上限<hr>上限:(12×("+colorText('ResearchTimes')[2]+"上限+1))<sup>"+colorText('ResearchTimes')[2]+"上限/50+1</sup><hr>"
-                let all = "总计:("+format(this.gain())+'/秒)'
-                return "研究世间万物的规律<hr>抵达上限后消耗"+colorText('ResearchPoint')[2]+"并获得1"+colorText('ResearchTimes')[2]+"以及"+colorText('ResearchTimes')[2]+spa+all
+                let gain = '总计生产:<br>'
+                let gainAll = "总计:(+"+format(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+12×("+colorText('ResearchTimes')[2]+"总数+1))<sup>"+colorText('ResearchTimes')[2]+"总数/50+1</sup>) => (+"+format(this.max())+")<br>"
+                let maxAll = "总计:(+"+format(this.max())+')'
+                return "研究世间万物的规律<hr>抵达上限后消耗"+colorText('ResearchPoint')[2]+"并获得1"+colorText('ResearchTimes')[2]+"以及"+colorText('ResearchTimes')[2]+'<hr>'+gain+gainAll+max+a2+maxAll
             },
         },
         ResearchTimes:{
@@ -28,9 +31,14 @@ var main = {
             gain(){return n(dirtGainWithHands())},
             PR(){return n(1)},
             tooltip(){
+                let gain = '总计生产:<br>'
                 let a = "手中流失:("+format(dirtGainWithHands())+'/秒)<br>'
-                let all = "总计:("+format(this.gain())+'/秒)'
-                return "细腻的泥土从你手中漏出<hr>"+a+all
+                let gainAll = "总计:("+format(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+10.00)<br>"
+                let b2 = n(maxGainStoneWall()[0]).gt(0) ? "来自建筑(石墙):(+"+format(maxGainStoneWall()[0])+")<br>" : ""
+                let maxAll = "总计:(+"+format(this.max())+')'
+                return "细腻的泥土从你手中漏出<hr>"+gain+a+gainAll+max+a2+b2+maxAll
             },
         },
         grass:{
@@ -61,8 +69,12 @@ var main = {
             gain(){return n(0)},
             PR(){return n(5)},
             tooltip(){
-                let all = "总计:("+format(this.gain())+'/秒)'
-                return "其实只是一些小石子<hr>"+all
+                let gain = '总计生产:<br>'
+                let gainAll = "总计:(+"+format(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+30.00)<br>"
+                let maxAll = "总计:(+"+format(this.max())+')'
+                return "其实只是一些小石子<hr>"+gain+gainAll+max+a2+maxAll
             },
             unlocked(){return player['Research0-3-0-1Lv'].gte(1)},
         },
@@ -73,8 +85,12 @@ var main = {
             gain(){return n(0)},
             PR(){return n(8.5)},
             tooltip(){
-                let all = "总计:("+format(this.gain())+'/秒)'
-                return "十分锋利的小石子,或许可以做些工具<hr>"+all
+                let gain = '总计生产:<br>'
+                let gainAll = "总计:(+"+format(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+30.00)<br>"
+                let maxAll = "总计:(+"+format(this.max())+')'
+                return "十分锋利的小石子,或许可以做些工具<hr>"+gain+gainAll+max+a2+maxAll
             },
             unlocked(){return player['Research0-3-0-1Lv'].gte(1)},
         },
@@ -85,8 +101,12 @@ var main = {
             gain(){return n(0)},
             PR(){return n(13)},
             tooltip(){
-                let all = "总计:("+format(this.gain())+'/秒)'
-                return "十分重要的材料<hr>"+all
+                let gain = '总计生产:<br>'
+                let gainAll = "总计:(+"+format(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+30.00)<br>"
+                let maxAll = "总计:(+"+format(this.max())+')'
+                return "十分重要的材料<hr>"+gain+gainAll+max+a2+maxAll
             },
             unlocked(){return player['Research0-3-0-6Lv'].gte(1)},
         },

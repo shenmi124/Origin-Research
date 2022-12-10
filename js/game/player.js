@@ -3,13 +3,15 @@ function calcPlayer(){
 
     loader(['ResearchAllTimes'],n(0))
     loader(['ResearchTimesUse'],n(0))
-    
+
     researchLoader(19)
 
-    loader(['res-0-1-1-1'],n(0))//草园
-    loader(['res-0-1-1-2'],n(0))//石墙
-
     loader(['devSpeed'],n(1))
+
+    NotOmegaLoader(['firstGame'],"false")
+
+    NotOmegaLoader(['logsType'],"none")
+
 	NotOmegaLoader(['autoSave'],"true")
 	NotOmegaLoader(['saveTick'],"false")
     NotOmegaLoader(['noneButtonID'],"false")

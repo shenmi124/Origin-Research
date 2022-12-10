@@ -26,13 +26,12 @@ function getResourceDoc(id){
 
 function getResourceID(id,res_name){
 	getNotNumDoc(id,`
-	<div class="resource-title border" id="`+res_name+`BorderID" style='border: 2px solid #282828; width:267px; height:19px;'>
-		<div class="resource-title" id="`+res_name+`ID" style="width: 70px;"></div>
-		<div class="resource-title" style="color: #888" id="`+res_name+`slashID">/</div>
-		<div class="resource-title" style="color: #888; width: 70px;" id="`+res_name+`MaxID"></div>
-		<div class="resource-title" id="`+res_name+`GainID" style="width: 100px;"></div>
-	</div>
-	<div class="resource-title border" id="`+res_name+`Border2ID" style="background: `+colorText(res_name)[0]+`6a; z-index: -1; transition-duration: 0.2s; clip-path: inset(0% 0% 0% 0%);"></div>
+	<div class="resource-title border" id="`+res_name+`BorderID" style='width:267px; height:1px;'></div>
+	<div class="resource-title" id="`+res_name+`ID" style="width: 70px;"></div>
+	<div class="resource-title" style="color: #888" id="`+res_name+`slashID">/</div>
+	<div class="resource-title" style="color: #888; width: 70px;" id="`+res_name+`MaxID"></div>
+	<div class="resource-title" id="`+res_name+`GainID" style="width: 100px;"></div>
+	<div class="resource-title border" id="`+res_name+`Border2ID" style="background: `+colorText(res_name)[0]+`; z-index: -1; transition-duration: 0.2s; clip-path: inset(0% 0% 0% 0%);"></div>
 	`
 	)
     if(main['resource'][res_name]['unlocked']!=undefined){

@@ -39,24 +39,24 @@ function canResearch(id){
    drawTreeBranch()
     if(player['Research'+id+'Can']=='research'){
         getCss('res-'+id+'ID','research')
-        lossCss('res-'+id+'ID','max')
-		lossCss('res-'+id+'ID','can')
-        lossCss('res-'+id+'ID','cannot')
+        loseCss('res-'+id+'ID','max')
+		loseCss('res-'+id+'ID','can')
+        loseCss('res-'+id+'ID','cannot')
     }else if(player['Research'+id+'Lv'].gte(player['Research'+id+'LvMax'])){
         player['Research'+id+'Can']='max'
-        lossCss('res-'+id+'ID','research')
+        loseCss('res-'+id+'ID','research')
         getCss('res-'+id+'ID','max')
-        lossCss('res-'+id+'ID','can')
-        lossCss('res-'+id+'ID','cannot')
+        loseCss('res-'+id+'ID','can')
+        loseCss('res-'+id+'ID','cannot')
     }else if(player['Research'+id+'Can']=='true'){
-        lossCss('res-'+id+'ID','research')
-        lossCss('res-'+id+'ID','max')
+        loseCss('res-'+id+'ID','research')
+        loseCss('res-'+id+'ID','max')
         getCss('res-'+id+'ID','can')
-		lossCss('res-'+id+'ID','cannot')
+		loseCss('res-'+id+'ID','cannot')
 	}else{
-        lossCss('res-'+id+'ID','research')
-        lossCss('res-'+id+'ID','max')
-		lossCss('res-'+id+'ID','can')
+        loseCss('res-'+id+'ID','research')
+        loseCss('res-'+id+'ID','max')
+		loseCss('res-'+id+'ID','can')
 		getCss('res-'+id+'ID','cannot')
     }
 }

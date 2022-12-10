@@ -6,10 +6,6 @@ function getNotNumDoc(id,id2){
 	document.getElementById(id+"ID").innerHTML = id2;
 }
 
-function getBuyNoDoc(id,id2){
-	document.getElementById(id).innerHTML = id2;
-}
-
 function getNotDoc(id,id2){
 	document.getElementById(id).innerHTML = id2;
 }
@@ -19,18 +15,27 @@ function getTooDoc(id){
 }
 
 function Close(id){
-    document.getElementById(id).style.display = "none" 
+	if(document.getElementById(id)!=null){
+		document.getElementById(id).style.display = "none"
+	}
 }
+
 function Open(id){
     document.getElementById(id).style.display = "" 
 }
 
-function getCss(id,id2){
+function getCss(id,id2,id3){
 	document.getElementById(id).classList.add(id2)
+	if(id3=='log'){
+		document.getElementById(id).classList.remove('un'+id2)
+	}
 }
 
-function lossCss(id,id2){
+function loseCss(id,id2,id3){
 	document.getElementById(id).classList.remove(id2)
+	if(id3=='log'){
+		document.getElementById(id).classList.add('un'+id2)
+	}
 }
 
 function ResearchResource(id,unlocked){

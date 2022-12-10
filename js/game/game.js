@@ -41,9 +41,9 @@ function dirtSieve(){
             log += '<br>'+numc+colorText('flint')[2]
         }
         if(log=='你筛出了'){
-            addLog('你什么都没有筛出')
+            addLog('你什么都没有筛出','action')
         }else{
-            addLog(log)
+            addLog(log,'action')
         }
     }
 }

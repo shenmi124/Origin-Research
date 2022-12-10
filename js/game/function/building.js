@@ -40,7 +40,7 @@ function Build(id){
     if(canbuy==true){
         player['building'+id] = player['building'+id].add(1)
     }else{
-        addLog(logs)
+        addLog(logs,'building')
     }
 }
 

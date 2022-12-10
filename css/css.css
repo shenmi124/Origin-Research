@@ -2,54 +2,45 @@ body {
 	font-family: verdana;
 	font-size: 16px;
 	cursor: default;
+    background: rgb(250, 250, 250);
+}
+
+*::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    border-radius: 10px;
+    background: rgb(209, 209, 209);
+}
+
+*::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgb(182, 182, 182);
 }
 
 button {
     width: 230px;
     height: 39px;
-    background: rgba(255, 255, 255, 1);
+    background: rgb(238, 238, 238);
     cursor: pointer;
     transition-duration: 0.2s;
     font-family: Helvetica;
-    font-size: 14px;
-    border-radius: 3px;
-    border: 1px solid #888;
-    padding: 5px;
+    font-size: 15px;
+    border-radius: 5px;
+    border: 0px solid #888;
     text-align: center;
     margin-bottom: 10px;
 }
 
 button:hover {
-    background: rgba(230, 230, 230, 1);
-}
-
-.version {
-	position: absolute;
-    left: 4px;
-    bottom: 4px;
-    text-align: right;
-	font-family: verdana;
-	color:#000000;
-	text-shadow: 0 0 10px #000000;
-	border-radius: 9px;
-	font-size: 15px;
-}
-
-.donate {
-	position: absolute;
-    right: 4px;
-    bottom: 4px;
-    text-align: right;
-	font-family: verdana;
-	color:#000000;
-	text-shadow: 0 0 10px #000000;
-	border-radius: 9px;
-	font-size: 15px;
+    background: rgb(219, 219, 219);
 }
 
 #tooltip {
     position: absolute !important;
     border: 1px solid gray;
+    border-radius: 3px;
+    background: rgb(250, 250, 250, 0.9);
+    color: rgb(65, 65, 65);
     padding: 5px;
     pointer-events: none;
     height: auto;
@@ -133,16 +124,7 @@ button:hover {
 
 .border {
     width:271px;
-    height:23px;
+    height:2px;
     position: absolute; 
     border-radius: 20px;
-}
-
-.log {
-    width:var(--logWidth);
-    height:var(--height);
-    border-radius: 3px;
-    border: 2px solid black;
-    overflow-x: auto;
-    overflow-y: auto;
 }

@@ -1,0 +1,27 @@
+.log {
+    width:var(--logWidth);
+    height:var(--logheight);
+    border-radius: 3px;
+    border: 1px solid rgb(78, 78, 78);
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.logTypes {
+    width:var(--logWidth);
+    overflow-x: auto;
+    overflow-y: auto;
+    cursor: pointer;
+    padding-right: 2px;
+    border-radius: 5px;
+    transition-duration: 0.2s;
+    color: rgb(116, 116, 116);
+}
+
+.unselectLogs:hover {
+    color: black;
+}
+
+.selectLogs {
+    color: #00ce00;
+}

@@ -22,7 +22,7 @@ function ResearchScheduleTooltip(id,things){
 
 function getTooltipID(id,id2){
 	let a = player.noneButtonID=='true' ? '<br>ID:'+id.substr(10) : ''
-	getBuyNoDoc(id,`
+	getNotDoc(id,`
 	<button id='`+id+`ID' class="tree" onclick="Researching('`+id.substr(4)+`')">`+id2+a+`</button>
 	`)
 }
@@ -33,6 +33,30 @@ function getWorBtoID(id,action,use_name){
 
 function getID(){
 	loadLog()
+	if(player.logsType!='none'){
+		loseCss('styleLog1','selectLogs','log')
+		if(player.logsType!='building'){
+			loseCss('styleLog2','selectLogs','log')
+			for(let col=1;col<=timesLogs;col++){
+				Close('buildingLogs'+col,'log')
+			}
+		}else{
+			getCss('styleLog2','selectLogs','log')
+		}
+		if(player.logsType!='action'){
+			loseCss('styleLog3','selectLogs','log')
+			for(let col=1;col<=timesLogs;col++){
+				Close('actionLogs'+col,'log')
+			}
+		}else{
+			getCss('styleLog3','selectLogs','log')
+		}
+	}else{
+		getCss('styleLog1','selectLogs','log')
+		
+		loseCss('styleLog2','selectLogs','log')
+		loseCss('styleLog3','selectLogs','log')
+	}
 
 	for(i in main['resource']){
 		getResourceID(i+'LoadResource',i)
@@ -75,6 +99,7 @@ function getID(){
 	document.body.style.setProperty('--height', window.innerHeight-37);
 	document.body.style.setProperty('--midWidth', (window.innerWidth-400)*0.7);
 	document.body.style.setProperty('--logWidth', (window.innerWidth-400)*0.25);
+	document.body.style.setProperty('--logheight', window.innerHeight-63);
 
 
 	let w = 4

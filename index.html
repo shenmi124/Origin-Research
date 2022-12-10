@@ -35,14 +35,19 @@
 	<script src="js/game/workshop.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="css/css.css"/>
+	<link rel="stylesheet" type="text/css" href="css/side.css"/>
 	<link rel="stylesheet" type="text/css" href="css/resource.css"/>
+	<link rel="stylesheet" type="text/css" href="css/logs.css"/>
+	
+	<link rel="stylesheet" href="css/css/font-awesome.min.css">
 	
 </head>
 
 <body onscroll="resizeCanvas()">
 	<canvas id="treeCanvas" class="canvas"></canvas>
-	<a href="upload.html" target="_blank" class="version">v0.01</a>
+	<a href="upload.html" target="_blank" class="version">v0.02</a>
 	<a href="https://afdian.net/@Mysterious124" target="_blank" class="donate">点我捐助</a>
+	<i class="fa fa-cog setting" aria-hidden="true" onclick="showTab('setting')"></i>
 	<div id="game">
 		<div id="leftColumn" class="column" style="vertical-align: top;">
 			<a id="loadResource"></a>
@@ -52,19 +57,13 @@
 			<button class="maintab" onclick="showTab('research')">研究</button>
 			<button class="maintab" onclick="showTab('tree')">科技树</button>
 			<button id="tab_workshop_unlocked" class="maintab" onclick="showTab('workshop')">工坊</button>
-			<button class="maintab" onclick="showTab('setting')">设置</button>
 			<br>
 			<mainTab id="tab_setting" style="display: none;">
-				<br>
-				<tr>
-					<button onclick="autoSave()" style="width:200px;height:55px">自动保存:<a id="autoSaveID"></a></button>
-					<button onclick="prompt('下面是你的存档:',saveStr)" id="export" style="width:200px;height:55px">导出</button>
-					<button onclick="load(prompt('输入存档:'))" id="import" style="width:200px;height:55px">导入</button>  
-					<button onclick="save()" style="width:200px;height:55px">保存<a id="autoSaveID"></a></button>
-				</tr><br><br>
-				<tr>
-					<button onclick="if(!!confirm('你确定要硬重置吗?这样你将失去一切!!!')){if(!!confirm('这个存档将永远失去!(很长时间!)')){toClearSave = true}}" id="export"  style="width:200px;height:55px">硬重置</button>
-				</tr>
+				<button onclick="save()" class="settingBto">保存</button><br>
+					<button onclick="autoSave()" class="settingBto">自动保存:<a id="autoSaveID"></a></button><br>
+					<button onclick="prompt('下面是你的存档:',saveStr)" id="export" class="settingBto">导出</button><br>
+					<button onclick="load(prompt('输入存档:'))" id="import" class="settingBto">导入</button><br>
+					<button onclick="if(!!confirm('你确定要硬重置吗?这样你将失去一切!!!')){if(!!confirm('这个存档将永远失去!(很长时间!)')){toClearSave = true}}" id="export"  class="settingBto">硬重置</button><br>
 			</mainTab>
 			<mainTab id="tab_main">
 				行动<br>
@@ -182,6 +181,11 @@
 		</div>
 	</div>
 	<div id="rightColumn" class="column" style="vertical-align: top;">
+		<div>
+			<t id="styleLog1" class="logTypes" onclick="player.logsType='none'">全部</t>
+			<t id="styleLog2" class="logTypes" onclick="player.logsType='building'">建筑</t>
+			<t id="styleLog3" class="logTypes" onclick="player.logsType='action'">行动</t>
+		</div>
 		<div class="log">
 			<div id="loadLog"></div>
 		</div>

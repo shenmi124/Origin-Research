@@ -28,7 +28,7 @@ function fistLoad(){
 	for(i in main['resource']){resourceStr += '<a id='+i+'LoadResource></a>'}
 	getNotDoc('loadResource',resourceStr)
 	for(i in main['resource']){
-		getBuyNoDoc(i+'LoadResource',`<a id="`+i+`LoadResourceTitleID"></a><a id="`+i+`LoadResourceID" style="position: absolute; "></a><a id="`+i+`LoadResourceBrID"></a>`)
+		getNotDoc(i+'LoadResource',`<a id="`+i+`LoadResourceTitleID"></a><a id="`+i+`LoadResourceID" style="position: absolute; "></a><a id="`+i+`LoadResourceBrID"></a>`)
 		getResourceTitleID(i+'LoadResource',i)
 	}
 
@@ -38,7 +38,7 @@ function fistLoad(){
 	}
 	getNotDoc('loadAction',actionStr)
 	for(i in main['action']){
-		getBuyNoDoc(i+'LoadAction',`<br id="`+i+`LoadActionBrID"><a id="`+i+`LoadActionID"></a> `)
+		getNotDoc(i+'LoadAction',`<br id="`+i+`LoadActionBrID"><a id="`+i+`LoadActionID"></a> `)
 		let nameAct = '未命名'
 		if(main['action'][i]['name']!=undefined){
 			nameAct = main['action'][i]['name']()
@@ -52,7 +52,7 @@ function fistLoad(){
 	}
 	getNotDoc('loadBuilding',buildingStr)
 	for(i in main['building']){
-		getBuyNoDoc(i+'LoadBuilding',`<br id="`+i+`LoadBuildingBrID"><a id="`+i+`LoadBuildingID"></a> `)
+		getNotDoc(i+'LoadBuilding',`<br id="`+i+`LoadBuildingBrID"><a id="`+i+`LoadBuildingID"></a> `)
 		let nameBud = '未命名'
 		if(main['building'][i]['name']!=undefined){
 			nameBud = main['building'][i]['name']()
@@ -69,13 +69,13 @@ function fistLoad(){
 	getNotDoc('loadResearchResource',researchResourceStr)
 	for(i in main['resource']){
 		if(main['resource'][i]['PR']!=undefined){
-			getBuyNoDoc(i+'LoadResearchResource',`<br id="`+i+`LoadResearchResourceBrID"><a id="`+i+`LoadResearchResourceID"></a> `)
+			getNotDoc(i+'LoadResearchResource',`<br id="`+i+`LoadResearchResourceBrID"><a id="`+i+`LoadResearchResourceID"></a> `)
 			getResearchResourceID(i+'LoadResearchResource',i)
 		}
 	}
 	
 	for(col=1;col<=allWork;col++){
-		getBuyNoDoc('res-0-4-0-'+col+'loadResource',`<br id="0-4-0-`+col+`-br"><a id="res-0-4-0-`+col+`ID"></a>`)
+		getNotDoc('res-0-4-0-'+col+'loadResource',`<br id="0-4-0-`+col+`-br"><a id="res-0-4-0-`+col+`ID"></a>`)
 	}
 }
 
