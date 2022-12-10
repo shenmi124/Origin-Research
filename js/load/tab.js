@@ -83,6 +83,11 @@ function firstTab(){
 	if(tab==true){
 		fistLoad()
 
+		if(player.firstGame=='false'){
+			player.firstGame = 'true'
+			addLog('头疼的厉害,你已经记不清你是如何来到这片荒芜,一望无边的草地了...','news')
+		}
+
 		getTooltipID('res-0-3-0-1','泥土工艺')
 		getTooltipID('res-0-3-0-2','肥沃土壤')
 		getTooltipID('res-0-3-0-3','石墙')

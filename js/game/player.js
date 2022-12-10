@@ -6,6 +6,7 @@ function calcPlayer(){
 
     researchLoader(19)
 
+    loader(['offline'],n(0))
     loader(['devSpeed'],n(1))
 
     NotOmegaLoader(['firstGame'],"false")
@@ -20,6 +21,8 @@ function calcPlayer(){
 function superLoader(){
     for(ii in main['resource']){
 		loader([ii],n(0))
+        loader([ii+'Unlock'],'false')
+        loader([ii+'Unlocked'],'false')
 	}
     for(ii in main['building']){
 		loader(['building'+ii],n(0))

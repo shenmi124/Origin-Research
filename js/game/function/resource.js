@@ -40,15 +40,20 @@ function getResourceID(id,res_name){
 			document.getElementById(id+"TitleID").style.display = ''
 			document.getElementById(id+"ID").style.display = ''
 			getNotNumDoc(id+'Br',`<br>`)
+			player[res_name+'Unlock'] = 'true'
+			player[res_name+'Unlocked'] = 'true'
 		}else{
 			document.getElementById(id+"TitleID").style.display = 'none'
 			document.getElementById(id+"ID").style.display = 'none'
 			getNotNumDoc(id+'Br',``)
+			player[res_name+'Unlock'] = 'false'
 		}
     }else{
 		document.getElementById(id+"TitleID").style.display = ''
 		document.getElementById(id+"ID").style.display = ''
 		getNotNumDoc(id+'Br',`<br>`)
+		player[res_name+'Unlock'] = 'true'
+		player[res_name+'Unlocked'] = 'true'
 	}
 	if(main['resource'][res_name]['max']!=undefined){
 		let border = n(100).sub(player[res_name].div(main['resource'][res_name]['max']().max(0.01)).mul(100))

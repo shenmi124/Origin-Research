@@ -1,5 +1,6 @@
 var t=new Date()
 var timestart=new Date()
+var offlineTime=new Date()
 var diff=0
 
 function getWorkID(id,res_name){
@@ -33,30 +34,6 @@ function getWorBtoID(id,action,use_name){
 
 function getID(){
 	loadLog()
-	if(player.logsType!='none'){
-		loseCss('styleLog1','selectLogs','log')
-		if(player.logsType!='building'){
-			loseCss('styleLog2','selectLogs','log')
-			for(let col=1;col<=timesLogs;col++){
-				Close('buildingLogs'+col,'log')
-			}
-		}else{
-			getCss('styleLog2','selectLogs','log')
-		}
-		if(player.logsType!='action'){
-			loseCss('styleLog3','selectLogs','log')
-			for(let col=1;col<=timesLogs;col++){
-				Close('actionLogs'+col,'log')
-			}
-		}else{
-			getCss('styleLog3','selectLogs','log')
-		}
-	}else{
-		getCss('styleLog1','selectLogs','log')
-		
-		loseCss('styleLog2','selectLogs','log')
-		loseCss('styleLog3','selectLogs','log')
-	}
 
 	for(i in main['resource']){
 		getResourceID(i+'LoadResource',i)
@@ -170,9 +147,13 @@ function getID(){
 
 setInterval(function(){
 	t = new Date()
-	var realDiff = n((Number(t.getTime())-timestart)/1000)
+	offlineTimeGain = n((Number(offlineTime.getTime())-player.offline)/1000)
+	if(player.offline.lte(n(Number(offlineTime.getTime())).sub(20000)) && player.firstGame=='true'){
+		player.time = player.time.add(offlineTimeGain)
+		addLog('您离线了'+formatTime(offlineTimeGain)+'并获得同等的'+colorText('time')[2],'news')
+	}
+	player.offline = n((Number(t.getTime())))
 	diff = n(Math.min((Number(t.getTime())-timestart)/1000,1e100))
-	//if(realDiff.gte(diff) &&!player.cheated){player.offlineSpeedup = player.offlineSpeedup.add(realDiff.sub(diff).add(1).pow(0.925).sub(1))}
 	var offlineBoost = n(1).mul(player.devSpeed)
 	diff=diff.mul(offlineBoost)
 	timestart=t.getTime()

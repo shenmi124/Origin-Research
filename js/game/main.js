@@ -1,5 +1,20 @@
 var main = {
     resource:{
+        time:{
+            name(){return '时间通量'},
+            color(){return '#46747c'},
+            max(){return n(3600)},
+            gain(){return n(0)},
+            tooltip(){
+                let gain = '总计生产:<br>'
+                let gainAll = "总计:("+format(this.gain())+'/秒) => ('+formatTime(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+3600.00)<br>"
+                let maxAll = "总计:(+"+format(this.max())+') => (+'+formatTime(this.max())+')'
+                return "这个资源可能在未来也就是2个月前的现在获得,等等,现在是什么时间?<hr>离线时长超过20秒或暂停时获得同等"+colorText('time')[2]+"<br>"+colorText('time')[2]+"可以加速资源生产的时间流逝<br><hr>"+gain+gainAll+max+a2+maxAll
+            },
+            unlocked(){return player.time.gt(0) || player.timeUnlocked=='true'},
+        },
         ResearchPoint:{
             name(){return '研究'},
             color(){return '#3dd3f8'},
@@ -13,6 +28,7 @@ var main = {
                 let maxAll = "总计:(+"+format(this.max())+')'
                 return "研究世间万物的规律<hr>抵达上限后消耗"+colorText('ResearchPoint')[2]+"并获得1"+colorText('ResearchTimes')[2]+"以及"+colorText('ResearchTimes')[2]+'<hr>'+gain+gainAll+max+a2+maxAll
             },
+            unlocked(){return player.ResearchPoint.gt(0) || player.ResearchPoint=='true'},
         },
         ResearchTimes:{
             name(){return '精通'},
@@ -23,6 +39,7 @@ var main = {
                 let spc = "精通总数:"+format(player.ResearchAllTimes,0)
                 return "凝聚了一代人的毕生所学<hr>研究强度:分配次数<hr>"+spa+spb+spc
             },
+            unlocked(){return player.ResearchTimes.gt(0) || player.ResearchTimes=='true'},
         },
         dirt:{
             name(){return '泥土'},
