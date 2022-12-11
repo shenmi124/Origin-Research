@@ -1,8 +1,16 @@
 function getResourceTitleID(id,res_name){
 	getNotNumDoc(id+'Title',`
 		<div style="height:1px"></div>
-		<div class="resource-title resource-name" style="color: `+colorText(res_name)[0]+`;position: relative; "><tooltip id='`+res_name+`TooltipLoadResource'>`+colorText(res_name)[1]+`</tooltip></div>`
+		<div class="resource-title resource-name" style="color: `+colorText(res_name)[0]+`;position: relative;"><tooltip id='`+res_name+`TooltipLoadResource'>`+colorText(res_name)[1]+`</tooltip></div>`
 	)
+}
+
+function getResourceOtherID(id,res_name){
+	let a = ''
+	if(main['resource'][res_name]['otherText']!=undefined){
+		a = `<div class="resource-title resource-onclick" style="color: #888; width: 70px;position: relative;" onclick="getResourceClick('`+res_name+`')">`+main['resource'][res_name]['otherText']()+`</div>`
+	}
+	getNotNumDoc(id+'Other',a)
 }
 
 function getResourceDoc(id){
@@ -24,25 +32,33 @@ function getResourceDoc(id){
 	}
 }
 
+function getResourceClick(res_name){
+	if(main['resource'][res_name]['onClick']!=undefined){
+		let a = main['resource'][res_name]['onClick'].toString()
+		eval(a.substr(10).substr(0,a.substr(10).lastIndexOf('}')))
+	}
+}
+
 function getResourceID(id,res_name){
 	getNotNumDoc(id,`
-	<div class="resource-title border" id="`+res_name+`BorderID" style='width:267px; height:1px;'></div>
 	<div class="resource-title" id="`+res_name+`ID" style="width: 70px;"></div>
 	<div class="resource-title" style="color: #888" id="`+res_name+`slashID">/</div>
 	<div class="resource-title" style="color: #888; width: 70px;" id="`+res_name+`MaxID"></div>
-	<div class="resource-title" id="`+res_name+`GainID" style="width: 100px;"></div>
+	<div class="resource-title" id="`+res_name+`GainID" style="width: 110px;"></div>
 	<div class="resource-title border" id="`+res_name+`Border2ID" style="background: `+colorText(res_name)[0]+`; z-index: -1; transition-duration: 0.2s; clip-path: inset(0% 0% 0% 0%);"></div>
 	`
 	)
     if(main['resource'][res_name]['unlocked']!=undefined){
         let unlocked = main['resource'][res_name]['unlocked']()
 		if(unlocked || unlocked==null){
+			document.getElementById(id+"OtherID").style.display = ''
 			document.getElementById(id+"TitleID").style.display = ''
 			document.getElementById(id+"ID").style.display = ''
 			getNotNumDoc(id+'Br',`<br>`)
 			player[res_name+'Unlock'] = 'true'
 			player[res_name+'Unlocked'] = 'true'
 		}else{
+			document.getElementById(id+"OtherID").style.display = 'none'
 			document.getElementById(id+"TitleID").style.display = 'none'
 			document.getElementById(id+"ID").style.display = 'none'
 			getNotNumDoc(id+'Br',``)
@@ -65,6 +81,17 @@ function getResourceID(id,res_name){
 }
 
 function resourceAction(id){
+	if(player.time.lte(0)){player.timeMod = n(0)}
+	if(player.timeMod.eq(2)){
+		getCss('time','time')
+		loseCss('time','timeStop')
+	}else if(player.timeMod.eq(0)){
+		getCss('time','timeStop')
+		loseCss('time','time')
+	}else{
+		loseCss('time','time')
+		loseCss('time','timeStop')
+	}
 	if(main['resource'][id]['number']!=undefined){
 		player[id] = n(main['resource'][id]['number']())
 	}else{

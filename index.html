@@ -45,7 +45,7 @@
 
 <body onscroll="resizeCanvas()">
 	<canvas id="treeCanvas" class="canvas"></canvas>
-	<a href="upload.html" target="_blank" class="version">v0.02</a>
+	<a href="upload.html" target="_blank" class="version">v0.023</a>
 	<a href="https://afdian.net/@Mysterious124" target="_blank" class="donate">点我捐助</a>
 	<i class="fa fa-cog setting" aria-hidden="true" onclick="showTab('setting')"></i>
 	<div id="game">
@@ -60,10 +60,11 @@
 			<br>
 			<mainTab id="tab_setting" style="display: none;">
 				<button onclick="save()" class="settingBto">保存</button><br>
-					<button onclick="autoSave()" class="settingBto">自动保存:<a id="autoSaveID"></a></button><br>
-					<button onclick="prompt('下面是你的存档:',saveStr)" id="export" class="settingBto">导出</button><br>
-					<button onclick="load(prompt('输入存档:'))" id="import" class="settingBto">导入</button><br>
-					<button onclick="if(!!confirm('你确定要硬重置吗?这样你将失去一切!!!')){if(!!confirm('这个存档将永远失去!(很长时间!)')){toClearSave = true}}" id="export"  class="settingBto">硬重置</button><br>
+				<button onclick="autoSave()" class="settingBto">自动保存:<a id="autoSaveID"></a></button><br>
+				<button onclick="prompt('下面是你的存档:',saveStr)" id="export" class="settingBto">导出</button><br>
+				<button onclick="load(prompt('输入存档:'))" id="import" class="settingBto">导入</button><br>
+				<button onclick="if(!!confirm('你确定要硬重置吗?这样你将失去一切!!!')){if(!!confirm('这个存档将永远失去!(很长时间!)')){toClearSave = true}}" id="export"  class="settingBto">硬重置</button><br>
+				<button onclick="countingMethod()" class="settingBto">计数法:<a id="countingMethodID"></a></button><br>
 			</mainTab>
 			<mainTab id="tab_main">
 				行动<br>

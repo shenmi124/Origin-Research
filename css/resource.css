@@ -1,6 +1,13 @@
 .resource-title.resource-name {
     width: 100px;
+    cursor:help;
 }
+
+.resource-title.resource-onClick {
+    width: 100px;
+    cursor:pointer;
+}
+
 .resource-title {
     padding-left: 2px;
     padding-right: 2px;
@@ -9,4 +16,14 @@
     overflow-x: hidden;
     text-overflow: ellipsis;
     font-size: 16px;
+}
+
+.time {
+    color: rgb(25, 214, 189);
+	text-shadow: 0 0 3px rgb(25, 214, 189);
+}
+
+.timeStop {
+    color: rgb(85, 85, 85);
+	text-shadow: 0 0 3px rgb(85, 85, 85);
 }

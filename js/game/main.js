@@ -3,32 +3,65 @@ var main = {
         time:{
             name(){return '时间通量'},
             color(){return '#46747c'},
-            max(){return n(3600)},
-            gain(){return n(0)},
+            max(){return n(1800)},
+            gain(){
+                let a = n(0)
+                if(player.timeMod.eq(2)){
+                    a = n(0).sub(1).mul(player.timeMod)
+                }else if(player.timeMod.eq(0)){
+                    a = n(1)
+                }
+                return a
+            },
             tooltip(){
                 let gain = '总计生产:<br>'
-                let gainAll = "总计:("+format(this.gain())+'/秒) => ('+formatTime(this.gain())+'/秒)'
+                let a = player.timeMod.eq(2) ? '时间洪流:(-'+format(n(1))+')<br>' : ''
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(+'+format(n(1))+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
+                let gainAll = "总计:("+format(this.gain())+'/秒) <-> ('+formatTime(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+3600.00)<br>"
-                let maxAll = "总计:(+"+format(this.max())+') => (+'+formatTime(this.max())+')'
-                return "这个资源可能在未来也就是2个月前的现在获得,等等,现在是什么时间?<hr>离线时长超过20秒或暂停时获得同等"+colorText('time')[2]+"<br>"+colorText('time')[2]+"可以加速资源生产的时间流逝<br><hr>"+gain+gainAll+max+a2+maxAll
+                let maxAll = "总计:(+"+format(this.max())+') <-> (+'+formatTime(this.max())+')'
+
+                let other = "<hr><big style='color: #46747c'>时间洪流</big><hr>点击时间洪流以改变模式,在时间洪流中你每秒消耗1时间同类来获得全局资源生产速度提升<br>当前你的时间倍率是:<a style='color: red;'>"+format(player.timeMod)+'</a>(上限:'+format(n(2))+')'
+                return "这个资源可能在未来也就是2个月前的现在获得,等等,现在是什么时间?<hr>离线时长超过20秒或暂停时获得同等"+colorText('time')[2]+"<br>"+colorText('time')[2]+"可以加速资源生产的时间流逝<br><hr>"+gain+a+timeStop+time+gainAll+max+a2+maxAll+other
             },
             unlocked(){return player.time.gt(0) || player.timeUnlocked=='true'},
+            otherText(){
+                return '<a id="time">时间洪流</a>'
+            },
+            onClick(){
+                if(player.timeMod.eq(1)){
+                    player.timeMod = n(2)
+                    getCss('time','time')
+                    loseCss('time','timeStop')
+                }else if(player.timeMod.eq(2)){
+                    player.timeMod = n(0)
+                    getCss('time','timeStop')
+                    loseCss('time','time')
+                }else{
+                    player.timeMod = n(1)
+                    loseCss('time','time')
+                    loseCss('time','timeStop')
+                }
+            },
         },
         ResearchPoint:{
             name(){return '研究'},
             color(){return '#3dd3f8'},
             max(){return n(12).mul(player.ResearchAllTimes.add(1)).pow(player.ResearchAllTimes.div(50).add(1))},
-            gain(){return n(0)},
+            gain(){return n(0).mul(player.timeMod)},
             tooltip(){
                 let gain = '总计生产:<br>'
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:(+"+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+12×("+colorText('ResearchTimes')[2]+"总数+1))<sup>"+colorText('ResearchTimes')[2]+"总数/50+1</sup>) => (+"+format(this.max())+")<br>"
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "研究世间万物的规律<hr>抵达上限后消耗"+colorText('ResearchPoint')[2]+"并获得1"+colorText('ResearchTimes')[2]+"以及"+colorText('ResearchTimes')[2]+'<hr>'+gain+gainAll+max+a2+maxAll
+                return "研究世间万物的规律<hr>抵达上限后消耗"+colorText('ResearchPoint')[2]+"并获得1"+colorText('ResearchTimes')[2]+"以及"+colorText('ResearchTimes')[2]+'<hr>'+gain+time+timeStop+gainAll+max+a2+maxAll
             },
-            unlocked(){return player.ResearchPoint.gt(0) || player.ResearchPoint=='true'},
+            unlocked(){return player.ResearchPoint.gt(0) || player.ResearchPointUnlocked=='true'},
         },
         ResearchTimes:{
             name(){return '精通'},
@@ -39,43 +72,47 @@ var main = {
                 let spc = "精通总数:"+format(player.ResearchAllTimes,0)
                 return "凝聚了一代人的毕生所学<hr>研究强度:分配次数<hr>"+spa+spb+spc
             },
-            unlocked(){return player.ResearchTimes.gt(0) || player.ResearchTimes=='true'},
+            unlocked(){return player.ResearchTimes.gt(0) || player.ResearchTimesUnlocked=='true'},
         },
         dirt:{
             name(){return '泥土'},
             color(){return '#cf7004'},
             max(){return n(10).add(maxGainStoneWall()[0]).add(maxGainStoneWall()[0])},
-            gain(){return n(dirtGainWithHands())},
+            gain(){return n(dirtGainWithHands()).mul(player.timeMod)},
             PR(){return n(1)},
             tooltip(){
                 let gain = '总计生产:<br>'
                 let a = "手中流失:("+format(dirtGainWithHands())+'/秒)<br>'
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:("+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+10.00)<br>"
                 let b2 = n(maxGainStoneWall()[0]).gt(0) ? "来自建筑(石墙):(+"+format(maxGainStoneWall()[0])+")<br>" : ""
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "细腻的泥土从你手中漏出<hr>"+gain+a+gainAll+max+a2+b2+maxAll
+                return "细腻的泥土从你手中漏出<hr>"+gain+a+timeStop+time+gainAll+max+a2+b2+maxAll
             },
         },
         grass:{
             name(){return '草'},
             color(){return '#4DF10C'},
             max(){return n(20).add(garssGainGrassGarden()[1]).add(maxGainStoneWall()[1])},
-            gain(){return n(garssGainGrassGarden()[0]).mul(garssGainMul()[0]).mul(garssGainMul()[1])},
+            gain(){return n(garssGainGrassGarden()[0]).mul(garssGainMul()[0]).mul(garssGainMul()[1]).mul(player.timeMod)},
             PR(){return n(1.5)},
             tooltip(){
                 let gain = '总计生产:<br>'
                 let a = n(garssGainGrassGarden()[0]).gt(0) ? "来自建筑(草园):(+"+format(garssGainGrassGarden()[0])+"/秒)<br>" : ""
                 let b = n(garssGainMul()[0]).gt(1) ? "来自研究(燧石打磨):(×"+format(garssGainMul()[0])+")<br>" : ""
                 let c = n(garssGainMul()[1]).gt(1) ? "来自研究(混合土壤):(×"+format(garssGainMul()[1])+")<br>" : ""
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:(+"+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+20.00)<br>"
                 let b2 = n(garssGainGrassGarden()[1]).gt(0) ? "来自建筑(草园):(+"+format(garssGainGrassGarden()[1])+")<br>" : ""
                 let c2 = n(maxGainStoneWall()[1]).gt(0) ? "来自建筑(石墙):(+"+format(maxGainStoneWall()[1])+")<br>" : ""
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "绿色的青草,或许可以做些有用的东西<hr>"+gain+a+b+c+gainAll+max+a2+b2+c2+maxAll
+                return "绿色的青草,或许可以做些有用的东西<hr>"+gain+a+b+c+timeStop+time+gainAll+max+a2+b2+c2+maxAll
             },
             unlocked(){return player['Research0-3-0-2Lv'].gte(1)},
         },
@@ -83,15 +120,17 @@ var main = {
             name(){return '石头'},
             color(){return '#868686'},
             max(){return n(30)},
-            gain(){return n(0)},
+            gain(){return n(0).mul(player.timeMod)},
             PR(){return n(5)},
             tooltip(){
                 let gain = '总计生产:<br>'
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:(+"+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+30.00)<br>"
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "其实只是一些小石子<hr>"+gain+gainAll+max+a2+maxAll
+                return "其实只是一些小石子<hr>"+gain+timeStop+time+gainAll+max+a2+maxAll
             },
             unlocked(){return player['Research0-3-0-1Lv'].gte(1)},
         },
@@ -99,15 +138,17 @@ var main = {
             name(){return '燧石'},
             color(){return '#A88080'},
             max(){return n(30)},
-            gain(){return n(0)},
+            gain(){return n(0).mul(player.timeMod)},
             PR(){return n(8.5)},
             tooltip(){
                 let gain = '总计生产:<br>'
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:(+"+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+30.00)<br>"
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "十分锋利的小石子,或许可以做些工具<hr>"+gain+gainAll+max+a2+maxAll
+                return "十分锋利的小石子,或许可以做些工具<hr>"+gain+timeStop+time+gainAll+max+a2+maxAll
             },
             unlocked(){return player['Research0-3-0-1Lv'].gte(1)},
         },
@@ -115,15 +156,17 @@ var main = {
             name(){return '木头'},
             color(){return '#CE6224'},
             max(){return n(50)},
-            gain(){return n(0)},
+            gain(){return n(0).mul(player.timeMod)},
             PR(){return n(13)},
             tooltip(){
                 let gain = '总计生产:<br>'
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:(+"+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+30.00)<br>"
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "十分重要的材料<hr>"+gain+gainAll+max+a2+maxAll
+                return "十分重要的材料<hr>"+gain+timeStop+time+gainAll+max+a2+maxAll
             },
             unlocked(){return player['Research0-3-0-6Lv'].gte(1)},
         },

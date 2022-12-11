@@ -8,8 +8,6 @@ body {
 *::-webkit-scrollbar {
     width: 6px;
     height: 6px;
-    border-radius: 10px;
-    background: rgb(209, 209, 209);
 }
 
 *::-webkit-scrollbar-thumb {
@@ -56,7 +54,6 @@ button:hover {
 }
 
 #leftColumn {
-    width: 400px;
     padding-right: 20px;
     overflow-y: auto;
 }
@@ -123,7 +120,7 @@ button:hover {
 }
 
 .border {
-    width:271px;
+    width:370px;
     height:2px;
     position: absolute; 
     border-radius: 20px;

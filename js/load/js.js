@@ -74,15 +74,14 @@ function getID(){
 
 	document.getElementById("midColumn").style.height = window.innerHeight-17
 	document.body.style.setProperty('--height', window.innerHeight-37);
-	document.body.style.setProperty('--midWidth', (window.innerWidth-400)*0.7);
-	document.body.style.setProperty('--logWidth', (window.innerWidth-400)*0.25);
+	document.body.style.setProperty('--midWidth', (window.innerWidth-450)*0.65);
+	document.body.style.setProperty('--logWidth', (window.innerWidth-450)*0.25);
 	document.body.style.setProperty('--logheight', window.innerHeight-63);
 
 
 	let w = 4
-	if((window.innerWidth-400)*0.7<1000){w = 3}
-	if((window.innerWidth-400)*0.7<750){w = 2}
-	if((window.innerWidth-400)*0.7<500){w = 1}
+	if((window.innerWidth-450)*0.65<1000){w = 3}
+	if((window.innerWidth-450)*0.65<750){w = 2}
 
 	let actionBr = -1
 	for(i in main['action']){
@@ -143,14 +142,26 @@ function getID(){
 	}
 
 	getNotNumDoc("autoSave",player.autoSave=="true" ? "开" : "关")
+	if(player.countingMethod=='scientific'){
+		getNotNumDoc("countingMethod",'科学计数法')
+	}else if(player.countingMethod=='standard'){
+		getNotNumDoc("countingMethod",'标准计数法')
+	}else if(player.countingMethod=='engineering'){
+		getNotNumDoc("countingMethod",'工程计数法')
+	}
 }
 
 setInterval(function(){
 	t = new Date()
 	offlineTimeGain = n((Number(offlineTime.getTime())-player.offline)/1000)
-	if(player.offline.lte(n(Number(offlineTime.getTime())).sub(20000)) && player.firstGame=='true'){
-		player.time = player.time.add(offlineTimeGain)
-		addLog('您离线了'+formatTime(offlineTimeGain)+'并获得同等的'+colorText('time')[2],'news')
+	if(player.offline.lte(n(Number(offlineTime.getTime())).sub(5000)) && player.firstGame=='true'){
+		let oldtime = n(player.time)
+		player.time = player.time.add(offlineTimeGain).min(main.resource.time.max())
+		addLog('您离线了'+formatTime(offlineTimeGain)+'并获得同等的'+colorText('time')[2]+
+		'<br>'+formatTime(oldtime)+'+'+formatTime(offlineTimeGain)+'->'+formatTime(player.time)+
+		'<br>'+format(oldtime)+'+'+format(offlineTimeGain)+'->'+format(player.time)+
+		'<br>(上限:'
+		+formatTime(main.resource.time.max())+' <-> '+format(main.resource.time.max())+')','news')
 	}
 	player.offline = n((Number(t.getTime())))
 	diff = n(Math.min((Number(t.getTime())-timestart)/1000,1e100))

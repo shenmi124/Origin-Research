@@ -28,8 +28,9 @@ function fistLoad(){
 	for(i in main['resource']){resourceStr += '<a id='+i+'LoadResource></a>'}
 	getNotDoc('loadResource',resourceStr)
 	for(i in main['resource']){
-		getNotDoc(i+'LoadResource',`<a id="`+i+`LoadResourceTitleID"></a><a id="`+i+`LoadResourceID" style="position: absolute; "></a><a id="`+i+`LoadResourceBrID"></a>`)
+		getNotDoc(i+'LoadResource',`<a id="`+i+`LoadResourceTitleID"></a><a id="`+i+`LoadResourceID"></a><a id="`+i+`LoadResourceOtherID"></a><a id="`+i+`LoadResourceBrID"></a>`)
 		getResourceTitleID(i+'LoadResource',i)
+		getResourceOtherID(i+'LoadResource',i)
 	}
 
 	let actionStr = ''
