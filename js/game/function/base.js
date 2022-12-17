@@ -21,17 +21,19 @@ function Close(id){
 }
 
 function Open(id){
-    document.getElementById(id).style.display = "" 
+	if(document.getElementById(id)!=null){
+    	document.getElementById(id).style.display = ""
+	}
 }
 
-function getCss(id,id2,id3){
+function addedCss(id,id2,id3){
 	document.getElementById(id).classList.add(id2)
 	if(id3=='log'){
 		document.getElementById(id).classList.remove('un'+id2)
 	}
 }
 
-function loseCss(id,id2,id3){
+function removeCss(id,id2,id3){
 	document.getElementById(id).classList.remove(id2)
 	if(id3=='log'){
 		document.getElementById(id).classList.add('un'+id2)

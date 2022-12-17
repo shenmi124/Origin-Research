@@ -28,68 +28,20 @@ function getTooltipID(id,id2){
 	`)
 }
 
-function getWorBtoID(id,action,use_name){
-	getNotNumDoc(id,`<tooltip id='`+id+`'><button onclick="`+action+`">`+use_name+`</button></tooltip>`)
-}
-
-function getID(){
-	loadLog()
-
-	for(i in main['resource']){
-		getResourceID(i+'LoadResource',i)
-		resourceAction(i)
-	}
-
-	for(i in main['resource']){
-		let unlocked = true
-		if(main['resource'][i]['unlocked']!=undefined){
-			unlocked = main['resource'][i]['unlocked']()
-		}
-		if(main['resource'][i]['PR']!=undefined){
-			ResearchResource(i+'LoadResearchResource',unlocked)
-		}
-	}
-
-	for(i in main['action']){
-		let unlocked = true
-		if(main['action'][i]['unlocked']!=undefined){
-			unlocked = main['action'][i]['unlocked']()
-		}
-		ResearchResource(i+'LoadAction',unlocked)
-	}
-
-	for(i in main['building']){
-		let unlocked = true
-		if(main['building'][i]['unlocked']!=undefined){
-			unlocked = main['building'][i]['unlocked']()
-		}
-		ResearchResource(i+'LoadBuilding',unlocked)
-	}
-
-	if(player['Research0-3-0-10Lv'].gte(1)){
-		Open('tab_workshop_unlocked')
-	}else{
-		Close('tab_workshop_unlocked')
-	}
-
-	document.getElementById("midColumn").style.height = window.innerHeight-17
-	document.body.style.setProperty('--height', window.innerHeight-37);
-	document.body.style.setProperty('--midWidth', (window.innerWidth-450)*0.65);
-	document.body.style.setProperty('--logWidth', (window.innerWidth-450)*0.25);
-	document.body.style.setProperty('--logheight', window.innerHeight-63);
-
-
+function getBr(){
 	let w = 4
-	if((window.innerWidth-450)*0.65<1000){w = 3}
+	if((window.innerWidth-450)*0.65<900){w = 3}
 	if((window.innerWidth-450)*0.65<750){w = 2}
 
 	let actionBr = -1
-	for(i in main['action']){
+	for(let i in main['action']){
 		let unlocked = true
 		if(main['action'][i]['unlocked']!=undefined){
 			unlocked = main['action'][i]['unlocked']()
 		}
-		actionBr += 1
+		if(unlocked){
+			actionBr += 1
+		}
 		if(actionBr%w === 0 && actionBr!=0){
 			document.getElementById(i+'LoadActionBrID').style.display = ''
 		}else{
@@ -98,12 +50,14 @@ function getID(){
 	}
 
 	let buildingBr = -1
-	for(i in main['building']){
+	for(let i in main['building']){
 		let unlocked = true
 		if(main['building'][i]['unlocked']!=undefined){
 			unlocked = main['building'][i]['unlocked']()
 		}
-		buildingBr += 1
+		if(unlocked){
+			actionBr += 1
+		}
 		if(buildingBr%w === 0 && buildingBr!=0){
 			document.getElementById(i+'LoadBuildingBrID').style.display = ''
 		}else{
@@ -112,7 +66,7 @@ function getID(){
 	}
 
 	let researchResourceBr = -1
-	for(i in main['resource']){
+	for(let i in main['resource']){
 		let unlocked = true
 		if(main['resource'][i]['unlocked']!=undefined){
 			unlocked = main['resource'][i]['unlocked']()
@@ -126,18 +80,75 @@ function getID(){
 			}
 		}
 	}
+}
 
+function getID(){
+	firstDiff()
+	loadLog()
 
-	let workBr = 0
-	for(col=1;col<=allWork;col++){
-		if(workBr%w === 0 && workBr!=0){
-			document.getElementById('0-4-0-'+col+'-br').style.display = ''
-			workBr += 1
-		}else if($('#res-0-4-0-'+col+'ID').css('display')!='none'){
-			document.getElementById('0-4-0-'+col+'-br').style.display = 'none'
-			workBr += 1
-		}else{
-			document.getElementById('0-4-0-'+col+'-br').style.display = 'none'
+	for(let i in main['resource']){
+		getResourceID(i+'LoadResource',i)
+		resourceAction(i)
+	}
+
+	for(let i in main['resource']){
+		let unlocked = true
+		if(main['resource'][i]['unlocked']!=undefined){
+			unlocked = main['resource'][i]['unlocked']()
+		}
+		if(main['resource'][i]['PR']!=undefined){
+			ResearchResource(i+'LoadResearchResource',unlocked)
+		}
+	}
+
+	for(let i in main['action']){
+		let unlocked = true
+		if(main['action'][i]['unlocked']!=undefined){
+			unlocked = main['action'][i]['unlocked']()
+		}
+		ResearchResource(i+'LoadAction',unlocked)
+	}
+
+	for(let i in main['building']){
+		let unlocked = true
+		if(main['building'][i]['unlocked']!=undefined){
+			unlocked = main['building'][i]['unlocked']()
+		}
+		ResearchResource(i+'LoadBuilding',unlocked)
+	}
+
+	document.getElementById("midColumn").style.height = window.innerHeight-17
+	document.body.style.setProperty('--height', window.innerHeight-37);
+	document.body.style.setProperty('--midWidth', (window.innerWidth-450)*0.65);
+	document.body.style.setProperty('--logWidth', (window.innerWidth-450)*0.25);
+	document.body.style.setProperty('--logheight', window.innerHeight-63);
+
+	getBr()
+	
+	for(let i in mainTab){
+		if(mainTab[i]['logs']!=undefined){
+			let Unlock = false
+			let logs = mainTab[i]['logs']()[0]
+			let logs2 = mainTab[i]['logs']()[1]
+			for(let ii in main[logs]){
+				if(main[logs][ii]['unlocked']!=undefined){
+					if(main[logs][ii]['unlocked']()==true){
+						Unlock = true
+					}
+				}else{
+					Unlock = true
+				}
+			}
+			if(Unlock){
+				NotOmegaLoader([i+'TabShown'],'false')
+				player[i+'TabShown'] = 'true'
+			}
+			getNotDoc(logs+"StyleLog",player[i+'TabShown'] ? logs2 : '')
+			if(mainTab[logs]['id']!=undefined){
+				let logs3 = mainTab[i]['name']()
+				let logs4 = mainTab[i]['id']()
+				getNotNumDoc(logs4+"Text",Unlock ? logs3+'<br>' : '')
+			}
 		}
 	}
 
@@ -148,13 +159,16 @@ function getID(){
 		getNotNumDoc("countingMethod",'标准计数法')
 	}else if(player.countingMethod=='engineering'){
 		getNotNumDoc("countingMethod",'工程计数法')
+	}else if(player.countingMethod=='letter'){
+		getNotNumDoc("countingMethod",'字母计数法')
 	}
+	getNotNumDoc("flushLog",player.flushLog=="true" ? "开" : "关")
 }
 
 setInterval(function(){
 	t = new Date()
 	offlineTimeGain = n((Number(offlineTime.getTime())-player.offline)/1000)
-	if(player.offline.lte(n(Number(offlineTime.getTime())).sub(5000)) && player.firstGame=='true'){
+	if(player.offline.lte(n(Number(offlineTime.getTime())).sub(5000)) && player.firstGame=='true' && player.timeUnlock=='true'){
 		let oldtime = n(player.time)
 		player.time = player.time.add(offlineTimeGain).min(main.resource.time.max())
 		addLog('您离线了'+formatTime(offlineTimeGain)+'并获得同等的'+colorText('time')[2]+
@@ -180,11 +194,4 @@ setInterval(function(){
 	}
 	firstTab()
 	getID()
-
-	for(col=1;col<=allResearch;col++){
-		maxResearch('0-3-0-'+col)
-		costResearch('0-3-0-'+col)
-		canResearch('0-3-0-'+col)
-		finishResearch('0-3-0-'+col)
-	}
 }, 50)

@@ -11,7 +11,8 @@ function autoSave(){
 function countingMethod(){
 	if(player.countingMethod=='scientific'){player.countingMethod='standard';return}
 	if(player.countingMethod=='standard'){player.countingMethod='engineering';return}
-	if(player.countingMethod=='engineering'){player.countingMethod='scientific';return}
+	if(player.countingMethod=='engineering'){player.countingMethod='letter';return}
+	if(player.countingMethod=='letter'){player.countingMethod='scientific';return}
 }
 
 function noneButtonID(){
@@ -22,4 +23,12 @@ function noneButtonID(){
 	}
 	save()
 	location.reload()
+}
+
+function flushLog(){
+	if(player.flushLog=='false'){
+		player.flushLog='true'
+	}else{
+		player.flushLog='false'
+	}
 }

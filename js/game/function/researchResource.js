@@ -3,5 +3,9 @@ function researchTooltip(res_name){
 }
 
 function getResearchResourceID(id,res_name){
-	getNotNumDoc(id,`<tooltip id='`+res_name+`TooltipLoadResearchResource'><button onclick="player.ResearchPoint=player.ResearchPoint.add(player.`+res_name+`.mul(main['resource']['`+res_name+`']['PR']()));player.`+res_name+`=n(0)">`+colorText(res_name)[1]+`</button></tooltip>`)
+	getNotNumDoc(id,`<tooltip id='`+res_name+`TooltipLoadResearchResource'><button onclick="player.ResearchPoint=player.ResearchPoint.add(player.`+res_name+`.mul(main['resource']['`+res_name+`']['PR']()));player.`+res_name+`=n(0);addLog('获得研究')">`+colorText(res_name)[1]+`</button></tooltip>`)
+}
+
+function ResearchResourceGain(){
+
 }

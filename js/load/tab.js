@@ -23,22 +23,47 @@ function tooltipMouseoverID(id){
 	});
 }
 
+function baseLoad(){
+	if(player.flushLog=='true'){
+		player.logsType = ['none']
+	}
+
+	let mainStr = ''
+	for(let i in mainTab){
+		let text = '<a id="'+mainTab[i]['id']()+'TextID"></a>'
+		let load = '<a id="load'+mainTab[i]['id']()+'"></a>'
+		mainStr += text+load+'<br><br>'
+	}
+	getNotDoc('loadMain',mainStr)
+
+	let logStr = '<t id="noneStyleLog" class="logTypes unselectLogs" onclick="changeLog(\'none\')">全部</t><t id="newsStyleLog" class="logTypes" onclick="changeLog(\'news\')">通知</t>'
+	for(let i in mainTab){
+		if(mainTab[i]['logs']!=undefined){
+			let text = '<t id="'+mainTab[i]['logs']()[0]+'StyleLog" class="logTypes unselectLogs" onclick="changeLog(\''+mainTab[i]['logs']()[0]+'\')">'+mainTab[i]['logs']()[1]+'</t>'
+			logStr += text
+		}
+	}
+	getNotDoc('loadLogText',logStr)
+}
+
 function fistLoad(){
+	baseLoad()
+
 	let resourceStr = ''
-	for(i in main['resource']){resourceStr += '<a id='+i+'LoadResource></a>'}
+	for(let i in main['resource']){resourceStr += '<a id='+i+'LoadResource></a>'}
 	getNotDoc('loadResource',resourceStr)
-	for(i in main['resource']){
+	for(let i in main['resource']){
 		getNotDoc(i+'LoadResource',`<a id="`+i+`LoadResourceTitleID"></a><a id="`+i+`LoadResourceID"></a><a id="`+i+`LoadResourceOtherID"></a><a id="`+i+`LoadResourceBrID"></a>`)
 		getResourceTitleID(i+'LoadResource',i)
 		getResourceOtherID(i+'LoadResource',i)
 	}
 
 	let actionStr = ''
-	for(i in main['action']){
+	for(let i in main['action']){
 		actionStr += '<a id='+i+'LoadAction></a>'
 	}
 	getNotDoc('loadAction',actionStr)
-	for(i in main['action']){
+	for(let i in main['action']){
 		getNotDoc(i+'LoadAction',`<br id="`+i+`LoadActionBrID"><a id="`+i+`LoadActionID"></a> `)
 		let nameAct = '未命名'
 		if(main['action'][i]['name']!=undefined){
@@ -48,11 +73,11 @@ function fistLoad(){
 	}
 
 	let buildingStr = ''
-	for(i in main['building']){
+	for(let i in main['building']){
 		buildingStr += '<a id='+i+'LoadBuilding></a>'
 	}
 	getNotDoc('loadBuilding',buildingStr)
-	for(i in main['building']){
+	for(let i in main['building']){
 		getNotDoc(i+'LoadBuilding',`<br id="`+i+`LoadBuildingBrID"><a id="`+i+`LoadBuildingID"></a> `)
 		let nameBud = '未命名'
 		if(main['building'][i]['name']!=undefined){
@@ -62,21 +87,17 @@ function fistLoad(){
 	}
 
 	let researchResourceStr = ''
-	for(i in main['resource']){
+	for(let i in main['resource']){
 		if(main['resource'][i]['PR']!=undefined){
 			researchResourceStr += '<a id='+i+'LoadResearchResource></a>'
 		}
 	}
 	getNotDoc('loadResearchResource',researchResourceStr)
-	for(i in main['resource']){
+	for(let i in main['resource']){
 		if(main['resource'][i]['PR']!=undefined){
-			getNotDoc(i+'LoadResearchResource',`<br id="`+i+`LoadResearchResourceBrID"><a id="`+i+`LoadResearchResourceID"></a> `)
+			getNotDoc(i+'LoadResearchResource',`<br id="`+i+`LoadResearchResourceBrID"><a id="`+i+`LoadResearchResourceID"></a>`)
 			getResearchResourceID(i+'LoadResearchResource',i)
 		}
-	}
-	
-	for(col=1;col<=allWork;col++){
-		getNotDoc('res-0-4-0-'+col+'loadResource',`<br id="0-4-0-`+col+`-br"><a id="res-0-4-0-`+col+`ID"></a>`)
 	}
 }
 
@@ -86,26 +107,9 @@ function firstTab(){
 
 		if(player.firstGame=='false'){
 			player.firstGame = 'true'
-			addLog('头疼的厉害,你已经记不清你是如何来到这片荒芜,一望无边的草地了...','news')
+			player.void = n(1)
+			addLog('头疼的厉害,你已经记不清你是如何来到这片荒芜,一望无边的荒地了...<br>脚下不知道是什么材质制成的地面,黑不溜秋的,十分坚硬却无比光滑,若隐若现的闪着<a class="High" style="color: rgb(123, 25, 214)">紫色的光</a>,像是病毒般扩散了出去,大概在十几米处才得以停止.<br>同时你注意到一些不同寻常的<a class="Space">能量</a>...','news')
 		}
-
-		getTooltipID('res-0-3-0-1','泥土工艺')
-		getTooltipID('res-0-3-0-2','肥沃土壤')
-		getTooltipID('res-0-3-0-3','石墙')
-		getTooltipID('res-0-3-0-4','燧石打磨')
-		getTooltipID('res-0-3-0-5','磨石')
-		getTooltipID('res-0-3-0-6','除草艺')
-		getTooltipID('res-0-3-0-7','沙石')
-		getTooltipID('res-0-3-0-8','燧石短斧')
-		getTooltipID('res-0-3-0-9','混合土壤')
-		getTooltipID('res-0-3-0-10','木材加工')
-		getTooltipID('res-0-3-0-11','树种')
-		getTooltipID('res-0-3-0-12','燧石镐')
-		getTooltipID('res-0-3-0-13','木桶')
-		getTooltipID('res-0-3-0-14','仓库')
-		getTooltipID('res-0-3-0-15','造纸术')
-		getTooltipID('res-0-3-0-16','煤')
-		getTooltipID('res-0-3-0-17','黏土')
 
 		$(document).ready(function(){
 			$("tooltip").mouseover(function(){
@@ -116,37 +120,17 @@ function firstTab(){
 				window.clearInterval(tooltipSel)
 			});
 			
-			for(i in main['resource']){
-				tooltipMouseoverID(i+"TooltipLoadResource")
-			}
-
-			for(i in main['action']){
-				tooltipMouseoverID(i+'TooltipLoadAction')
-			}
-
-			for(i in main['resource']){
-				tooltipMouseoverID(i+"TooltipLoadResearchResource")
-			}
-
-			for(i in main['building']){
-				tooltipMouseoverID(i+"TooltipLoadBuilding")
-			}
-
-			for(colTimes=1;colTimes<=allResearch;colTimes++){
-				mouseoverID("#res-0-3-0-"+colTimes)
-			}
-
-			for(colTimes=1;colTimes<=allWork;colTimes++){
-				mouseoverID("#res-0-4-0-"+colTimes)
-			}
+			for(let i in main['resource']){tooltipMouseoverID(i+"TooltipLoadResource")}
+			for(let i in main['resource']){tooltipMouseoverID(i+"TooltipLoadResourceOther")}
+			for(let i in main['action']){tooltipMouseoverID(i+'TooltipLoadAction')}
+			for(let i in main['resource']){tooltipMouseoverID(i+"TooltipLoadResearchResource")}
+			for(let i in main['building']){tooltipMouseoverID(i+"TooltipLoadBuilding")}
 
 			mouseoverID("#treeTip")
 
 			mouseoverID("#noneButtonID")
 		});
 		Close('tab_research')
-		Close('tab_tree')
-		Close('tab_workshop')
 		tab = false
 	}
 }
@@ -168,17 +152,5 @@ function showTab(id){
 		Open('tab_research')
 	}else{
 		Close('tab_research')
-	}
-
-	if(id=="tree"){
-		Open('tab_tree')
-	}else{
-		Close('tab_tree')
-	}
-
-	if(id=="workshop"){
-		Open('tab_workshop')
-	}else{
-		Close('tab_workshop')
 	}
 }

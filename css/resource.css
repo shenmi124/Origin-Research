@@ -20,10 +20,18 @@
 
 .time {
     color: rgb(25, 214, 189);
-	text-shadow: 0 0 3px rgb(25, 214, 189);
+	text-shadow: 0 0 3px;
 }
 
 .timeStop {
     color: rgb(85, 85, 85);
-	text-shadow: 0 0 3px rgb(85, 85, 85);
+	text-shadow: 0 0 3px;
+}
+
+.Space {
+	text-shadow: 0 0 3px;
+}
+
+.High {
+	text-shadow: 0 0 3px rgb(0, 0, 0);
 }

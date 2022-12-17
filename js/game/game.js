@@ -1,3 +1,12 @@
+function firstDiff(){
+    if(player.explore.gte(main.resource.explore.max())){
+        player.course = player.course.add(1)
+        if(player.course.eq(1)){
+            addLog('走了大概十几米,在一片黑色物质后便是一眼望不到头的泥土和荒草...<br>等等,你看见了一些不一样的东西.','news')
+        }
+    }
+}
+
 function dirtGainWithHands(){
     return n(0).sub(0.5)
 }
@@ -7,7 +16,7 @@ function dirtSieveProbability(){
 }
 
 function dirtSieveAmount(){
-    return [3,2,1]
+    return [4,3,2]
 }
 
 function dirtSieveCost(){
@@ -22,23 +31,23 @@ function dirtSieve(){
 
         let a = Math.floor(Math.random() * 100)+1
         if(a<=dirtSieveProbability()[0]){
-            let numa = Math.floor(Math.random() * dirtSieveAmount()[0])+1
+            let numa = Math.random() * dirtSieveAmount()[0]
             player.dirt = player.dirt.add(numa).min(main['resource']['dirt']['max']())
-            log += '<br>'+numa+colorText('dirt')[2]
+            log += '<br>'+format(numa)+colorText('dirt')[2]
         }
 
         let b = Math.floor(Math.random() * 100)+1
         if(b<=dirtSieveProbability()[1]){
-            let numb = Math.floor(Math.random() * dirtSieveAmount()[1])+1
+            let numb =Math.random() * dirtSieveAmount()[1]
             player.stone = player.stone.add(numb).min(main['resource']['stone']['max']())
-            log += '<br>'+numb+colorText('stone')[2]
+            log += '<br>'+format(numb)+colorText('stone')[2]
         }
 
         let c = Math.floor(Math.random() * 100)+1
         if(c<=dirtSieveProbability()[2]){
-            let numc = Math.floor(Math.random() * dirtSieveAmount()[2])+1
+            let numc = Math.random() * dirtSieveAmount()[2]
             player.flint = player.flint.add(numc).min(main['resource']['flint']['max']())
-            log += '<br>'+numc+colorText('flint')[2]
+            log += '<br>'+format(numc)+colorText('flint')[2]
         }
         if(log=='你筛出了'){
             addLog('你什么都没有筛出','action')
@@ -57,15 +66,11 @@ function garssGainGrassGarden(){
 }
 
 function maxBaseStoneWall(){
-    return [n(1).mul(20).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1)),n(1).mul(15).mul(player['Research0-3-0-3Lv'].mul(0.2).add(1))]
+    return [n(1).mul(20),n(1).mul(15)]
 }
 
 function maxGainStoneWall(){
     return [player.building2.mul(maxBaseStoneWall()[0]),player.building2.mul(maxBaseStoneWall()[1])]
-}
-
-function garssGainMul(){
-    return [player['Research0-3-0-4Lv'].mul(0.2).add(1),player['Research0-3-0-9Lv'].mul(0.25).add(1)]
 }
 
 function mowingGain(){
@@ -74,21 +79,4 @@ function mowingGain(){
     let grass = n(main['resource']['grass']['gain']()).min(20).mul(grassMul)
     let wood = n(main['resource']['grass']['gain']()).min(20).mul(woodMul)
     return [grass,grassMul,wood,woodMul]
-}
-
-function mowingGrass(){
-    player.grass=player.grass.add(mowingGain()[0]).min(main['resource']['grass']['max']())
-    if(player['Research0-3-0-6Lv'].gte(1)){player.wood=player.wood.add(mowingGain()[2]).min(main['resource']['wood']['max']())}
-    
-}
-
-function polishedStone(){
-    if(player.stone.gte(2)){
-        player.stone = player.stone.sub(2)
-        player.flint = player.flint.add(n(1).mul(player['Research0-3-0-5Lv'].mul(0.25).add(1))).min(main['resource']['flint']['max']())
-    }
-}
-
-function diging(){
-    player.stone = player.stone.add(1)
 }

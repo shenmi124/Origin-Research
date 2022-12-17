@@ -1,7 +1,7 @@
 function colorText(id){
 	let color = '#c3c3c3'
 	let Text = '未命名'
-	for(resourceColor in main['resource']){
+	for(let resourceColor in main['resource']){
 		if(id==resourceColor){
 			if(main['resource'][resourceColor]['color']!=undefined){
 				color = main['resource'][resourceColor]['color']()

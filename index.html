@@ -10,6 +10,7 @@
 	<script src="js/game/main.js"></script>
 	
 	<script src="js/load/save.js"></script>
+	<script src="js/load/loading.js"></script>
 	<script src="js/load/jQ.js"></script>
 	<script src="js/game/player.js"></script>
 	<script src="js/load/load.js"></script>
@@ -30,11 +31,10 @@
 	<script src="js/game/function/researchResource.js"></script>
 	<script src="js/game/function/action.js"></script>
 
-	<script src="js/game/tree.js"></script>
 	<script src="js/game/game.js"></script>
-	<script src="js/game/workshop.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="css/css.css"/>
+	<link rel="stylesheet" type="text/css" href="css/load.css"/>
 	<link rel="stylesheet" type="text/css" href="css/side.css"/>
 	<link rel="stylesheet" type="text/css" href="css/resource.css"/>
 	<link rel="stylesheet" type="text/css" href="css/logs.css"/>
@@ -44,8 +44,15 @@
 </head>
 
 <body onscroll="resizeCanvas()">
+	<div id="loading">
+		<div id="loading_bg">
+			<div class="loader">
+				加载中...
+			</div>
+		</div>
+	</div>
 	<canvas id="treeCanvas" class="canvas"></canvas>
-	<a href="upload.html" target="_blank" class="version">v0.023</a>
+	<a href="upload.html" target="_blank" class="version">v0.03</a>
 	<a href="https://afdian.net/@Mysterious124" target="_blank" class="donate">点我捐助</a>
 	<i class="fa fa-cog setting" aria-hidden="true" onclick="showTab('setting')"></i>
 	<div id="game">
@@ -54,9 +61,7 @@
 		</div>
 		<div id="midColumn" class="column" style="vertical-align: top">
 			<button class="maintab" onclick="showTab('main')">主页面</button>
-			<button class="maintab" onclick="showTab('research')">研究</button>
-			<button class="maintab" onclick="showTab('tree')">科技树</button>
-			<button id="tab_workshop_unlocked" class="maintab" onclick="showTab('workshop')">工坊</button>
+			<button class="maintab" onclick="showTab('research')" style="display: none;">研究</button>
 			<br>
 			<mainTab id="tab_setting" style="display: none;">
 				<button onclick="save()" class="settingBto">保存</button><br>
@@ -65,129 +70,19 @@
 				<button onclick="load(prompt('输入存档:'))" id="import" class="settingBto">导入</button><br>
 				<button onclick="if(!!confirm('你确定要硬重置吗?这样你将失去一切!!!')){if(!!confirm('这个存档将永远失去!(很长时间!)')){toClearSave = true}}" id="export"  class="settingBto">硬重置</button><br>
 				<button onclick="countingMethod()" class="settingBto">计数法:<a id="countingMethodID"></a></button><br>
+				<button onclick="flushLog()" class="settingBto">刷新日志重置:<a id="flushLogID"></a></button><br>
 			</mainTab>
 			<mainTab id="tab_main">
-				行动<br>
-				<a id="loadAction"></a>
-				<br><br><a id="res-0-1-1-0ID">建筑</a><br>
-				<a id="loadBuilding"></a>
+				<a id="loadMain"></a>
 			</mainTab>
 			<mainTab id="tab_research" style="display: none;">
 				研究<br>
 				<a id="loadResearchResource"></a>
 			</mainTab>
-			<mainTab id="tab_tree" style="display: none;">
-				科技树<br>
-				<tooltip id="treeTip"><button class="maintab" onclick="rollResearch()">分配</button></tooltip><br>
-				<div style="display: table-cell;">
-					<table cellpadding="8"  style="font-family: Typewriter;">
-						<tr>
-							<td></td><!---1--->
-							<td></td><!---2--->
-							<td></td><!---3--->
-							<td></td><!---4--->
-							<td></td><!---5--->
-							<td><tooltip id='res-0-3-0-1'></tooltip></td><!---6--->
-							<td><tooltip id='res-0-3-0-2'></tooltip></td><!---7--->
-							<td></td><!---8--->
-							<td></td><!---9--->
-							<td></td><!---10--->
-							<td></td><!---11--->
-						</tr>
-						<tr>
-							<td></td><!---1--->
-							<td></td><!---2--->
-							<td></td><!---3--->
-							<td></td><!---4--->
-							<td></td><!---5--->
-							<td><tooltip id='res-0-3-0-3'></tooltip></td><!---6--->
-							<td><tooltip id='res-0-3-0-4'></tooltip></td><!---7--->
-							<td></td><!---8--->
-							<td></td><!---9--->
-							<td></td><!---10--->
-							<td></td><!---11--->
-						</tr>
-						<tr>
-							<td></td><!---1--->
-							<td></td><!---2--->
-							<td></td><!---3--->
-							<td></td><!---4--->
-							<td></td><!---5--->
-							<td><tooltip id='res-0-3-0-5'></tooltip></td><!---6--->
-							<td></td><!---7--->
-							<td><tooltip id='res-0-3-0-6'></tooltip></td><!---8--->
-							<td></td><!---9--->
-							<td></td><!---10--->
-							<td></td><!---11--->
-						</tr>
-						<tr>
-							<td></td><!---1--->
-							<td></td><!---2--->
-							<td></td><!---3--->
-							<td></td><!---4--->
-							<td></td><!---5--->
-							<td><tooltip id='res-0-3-0-7'></tooltip></td><!---6--->
-							<td><tooltip id='res-0-3-0-8'></tooltip></td><!---7--->
-							<td></td><!---8--->
-							<td></td><!---9--->
-							<td></td><!---10--->
-							<td></td><!---11--->
-						</tr>
-						<tr>
-							<td></td><!---1--->
-							<td></td><!---2--->
-							<td></td><!---3--->
-							<td></td><!---4--->
-							<td></td><!---5--->
-							<td><tooltip id='res-0-3-0-9'></tooltip></td><!---6--->
-							<td><tooltip id='res-0-3-0-10'></tooltip></td><!---7--->
-							<td><tooltip id='res-0-3-0-11'></tooltip></td><!---8--->
-							<td><tooltip id='res-0-3-0-12'></tooltip></td><!---9--->
-							<td></td><!---10--->
-							<td></td><!---11--->
-						</tr>
-						<tr>
-							<td></td><!---1--->
-							<td></td><!---2--->
-							<td></td><!---3--->
-							<td></td><!---4--->
-							<td><tooltip id='res-0-3-0-13'></tooltip></td><!---5--->
-							<td><tooltip id='res-0-3-0-14'></tooltip></td><!---6--->
-							<td></td><!---7--->
-							<td><tooltip id='res-0-3-0-15'></tooltip></td><!---8--->
-							<td><tooltip id='res-0-3-0-16'></tooltip></td><!---9--->
-							<td></td><!---10--->
-							<td></td><!---11--->
-						</tr>
-						<tr>
-							<td></td><!---1--->
-							<td></td><!---2--->
-							<td></td><!---3--->
-							<td><tooltip id='res-0-3-0-17'></tooltip></td><!---4--->
-							<td></td><!---5--->
-							<td></td><!---6--->
-							<td></td><!---7--->
-							<td></td><!---8--->
-							<td></td><!---9--->
-							<td></td><!---10--->
-							<td></td><!---11--->
-						</tr>
-					</table>
-				</div>
-			</mainTab>
-			<mainTab id="tab_workshop" style="display: none;">
-				工坊<br>
-				<a id="res-0-4-0-1loadResource"></a>
-			</mainTab>
 		</div>
 	</div>
 	<div id="rightColumn" class="column" style="vertical-align: top;">
-		<div>
-			<t id="styleLog1" class="logTypes" onclick="player.logsType='none'">全部</t>
-			<t id="styleLog4" class="logTypes" onclick="player.logsType='news'">通知</t>
-			<t id="styleLog2" class="logTypes" onclick="player.logsType='building'">建筑</t>
-			<t id="styleLog3" class="logTypes" onclick="player.logsType='action'">行动</t>
-		</div>
+		<div id="loadLogText"></div>
 		<div class="log">
 			<div id="loadLog"></div>
 		</div>

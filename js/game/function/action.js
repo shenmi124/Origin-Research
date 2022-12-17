@@ -1,5 +1,5 @@
 function getActionID(id,use_name){
-	getNotNumDoc(id+"LoadAction",`<tooltip id='`+id+`TooltipLoadAction'><button onclick="getActionClick(`+id+`)">`+use_name+`</button></tooltip>`)
+	getNotNumDoc(id+"LoadAction",`<tooltip id='`+id+`TooltipLoadAction'><button onclick="getActionClick('`+id+`')">`+use_name+`</button></tooltip>`)
 }
 
 function getActionClick(id){

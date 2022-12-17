@@ -1,14 +1,18 @@
 function getResourceTitleID(id,res_name){
+	let Class = ''
+	if(main['resource'][res_name]['Class']!=undefined){
+		Class = main['resource'][res_name]['Class']()
+	}
 	getNotNumDoc(id+'Title',`
 		<div style="height:1px"></div>
-		<div class="resource-title resource-name" style="color: `+colorText(res_name)[0]+`;position: relative;"><tooltip id='`+res_name+`TooltipLoadResource'>`+colorText(res_name)[1]+`</tooltip></div>`
+		<div class="resource-title resource-name `+Class+`" style="color: `+colorText(res_name)[0]+`; position: relative;"><tooltip id='`+res_name+`TooltipLoadResource'>`+colorText(res_name)[1]+`</tooltip></div>`
 	)
 }
 
 function getResourceOtherID(id,res_name){
 	let a = ''
 	if(main['resource'][res_name]['otherText']!=undefined){
-		a = `<div class="resource-title resource-onclick" style="color: #888; width: 70px;position: relative;" onclick="getResourceClick('`+res_name+`')">`+main['resource'][res_name]['otherText']()+`</div>`
+		a = `<div class="resource-title resource-onclick" style="color: #888; width: 60px;position: relative;" onclick="getResourceClick('`+res_name+`')"><tooltip id='`+res_name+`TooltipLoadResourceOther'>`+main['resource'][res_name]['otherText']()+`</tooltip></div>`
 	}
 	getNotNumDoc(id+'Other',a)
 }
@@ -81,16 +85,16 @@ function getResourceID(id,res_name){
 }
 
 function resourceAction(id){
-	if(player.time.lte(0)){player.timeMod = n(0)}
+	if(player.time.lte(0)){player.timeMod = n(1)}
 	if(player.timeMod.eq(2)){
-		getCss('time','time')
-		loseCss('time','timeStop')
+		addedCss('time','time')
+		removeCss('time','timeStop')
 	}else if(player.timeMod.eq(0)){
-		getCss('time','timeStop')
-		loseCss('time','time')
+		addedCss('time','timeStop')
+		removeCss('time','time')
 	}else{
-		loseCss('time','time')
-		loseCss('time','timeStop')
+		removeCss('time','time')
+		removeCss('time','timeStop')
 	}
 	if(main['resource'][id]['number']!=undefined){
 		player[id] = n(main['resource'][id]['number']())
@@ -105,12 +109,7 @@ function resourceAction(id){
 		}
 		if(main['resource'][id]['max']!=undefined){
 			let max = main['resource'][id]['max']()
-			if(id!='ResearchPoint' && id!='ResearchTimes'){player[id] = player[id].min(max).max(0)}
-			if(id=='ResearchPoint' && player[id].gte(max)){
-				player.ResearchPoint = player.ResearchPoint.sub(main['resource']['ResearchPoint']['max']())
-				player.ResearchTimes = player.ResearchTimes.add(1)
-				player.ResearchAllTimes = player.ResearchAllTimes.add(1)
-			}
+			player[id] = player[id].min(max).max(0)
 		}
 	}
 }

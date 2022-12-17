@@ -12,7 +12,7 @@
     overflow-x: auto;
     overflow-y: auto;
     cursor: pointer;
-    padding-right: 2px;
+    margin-right: 4px;
     border-radius: 5px;
     transition-duration: 0.2s;
     color: rgb(116, 116, 116);

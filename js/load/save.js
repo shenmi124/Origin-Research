@@ -1,4 +1,4 @@
-var saveName = "origin_re";
+var saveName = "Origin_Research";
 var saveStr = "";
 var toClearSave = false
 var cleared = false
@@ -32,7 +32,7 @@ function n(number){
 
 function inJson(json,things){
     var a = json
-    for(i in things){
+    for(let i in things){
         if(a[things[i]]){
             a = a[things[i]]
         }else return false

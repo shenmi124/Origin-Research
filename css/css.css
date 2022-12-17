@@ -89,29 +89,6 @@ button:hover {
     width: 100px;
 }
 
-.tree {
-    width: 70px;
-    height: 70px;
-    border-radius: 15px;
-    border: 1px solid gray;
-}
-
-.can {
-    border: 1px solid #3dd3f8;
-}
-
-.cannot {
-    border: 1px solid rgb(241, 12, 12);
-}
-
-.max {
-    border: 1px solid rgb(77, 241, 12);
-}
-
-.research {
-    border: 1px solid #c200c9;
-}
-
 .canvas {
     top: 0;
     left: 0;

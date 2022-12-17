@@ -15,7 +15,7 @@ function drawTree(id,id2,times){
 
 	if(times==null){times=0}
 	
-	for(row=0;row<=times;row++){
+	for(let row=0;row<=times;row++){
 		if(player['Research'+id2[row].substr(4)+'Can']!='false'){
 			document.getElementById(id).style.display = ''
 		}

@@ -1,9 +1,3 @@
-
-/*function BuildTooltip(id,must_name,things){
-    <a style="color:'+player[main['building'][id]['cost'][col][0]]+'"><div style=";width: 50px; display: table-cell;">'+colorText(must_name)[1]+'</div></a><a><div style="width: 50px; display: table-cell">'+format(player[must_name])+'</div>/'+format(BuildCost(id)[things])+'</a>
-	return '<div style="text-align: left;">'+a+'</div>'
-}*/
-
 function getBuildingID(id,use_name){
 	getNotNumDoc(id+"LoadBuilding",`<tooltip id='`+id+`TooltipLoadBuilding'><button onclick="Build(`+id+`)">`+use_name+`</button></tooltip>`)
 }
