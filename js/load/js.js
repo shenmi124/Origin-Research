@@ -12,7 +12,7 @@ function ResearchSchedule(id){
 	if(player['Research'+id+'Lv'].gte(player['Research'+id+'LvMax'])){
 		return "<br>(<a style='color:"+colorText('ResearchTimes')[0]+"'>研究等级</a>:"+format(player['Research'+id+'Lv'],0)+"(Max))"
 	}else{
-		return "<br>("+format(player['Research'+id+'Now'],0)+"/"+format(player['Research'+id+'Max'],0)+"<a style='color:"+colorText('ResearchPoint')[0]+"'>研究进度</a>)<br>("+format(player['Research'+id+'Lv'],0)+"/"+format(player['Research'+id+'LvMax'],0)+"<a style='color:"+colorText('ResearchTimes')[0]+"'>研究等级</a>)"
+		return "<br>("+format(player['Research'+id+'Now'],0)+"/"+format(player['Research'+id+'Max'],0)+"<a style='color:"+colorText('researchPoint')[0]+"'>研究进度</a>)<br>("+format(player['Research'+id+'Lv'],0)+"/"+format(player['Research'+id+'LvMax'],0)+"<a style='color:"+colorText('ResearchTimes')[0]+"'>研究等级</a>)"
 	}
 }
 

@@ -94,7 +94,7 @@ var main = {
                 let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
                 let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:("+format(this.gain())+'/秒)'
-                return "基础:(虚空)<hr>一种未知的能量<br><hr>"+gain+a+time+timeStop+gainAll
+                return "基础:("+colorText('void')[2]+")<hr>一种未知的能量<br><hr>"+gain+a+time+timeStop+gainAll
             },
             unlocked(){return player.unknownManuscript[0]=='true'}
         },
@@ -103,8 +103,9 @@ var main = {
             color(){return 'rgb(62, 110, 61)'},
             Class(){return 'Space'},
             tooltip(){
-                let a = player.course.gte(1) ? '<hr>你的发现:<br>1.发现泥土<br>' : ''
-                return "对你探索的一种记录,每当你发现新物品时就会增加"+a
+                let a = player.course.gte(1) ? "<hr>你的发现:<br>1.发现"+colorText('dirt')[2]+"<br>" : ''
+                let b = player.course.gte(2) ? "2.发现"+colorText('stone')[2]+"<br>" : ''
+                return "对你探索的一种记录,每当你发现新物品时就会增加"+a+b
             },
         },
         explore:{
@@ -130,13 +131,13 @@ var main = {
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+"+format(this.max())+")<br>"
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "基础:("+format(n(10))+"<sup>(探索里程+"+format(n(1))+")<sup>"+format(n(1.1))+"</sup></sup>)<hr>抵达上限时获得1探索历程<hr>准确来说,这并不算是资源,这只是对你的探索的一种记录<br><hr>"+gain+a+time+timeStop+gainAll+max+a2+maxAll
+                return "基础:("+format(n(10))+"<sup>("+colorText('course')[2]+"+"+format(n(1))+")<sup>"+format(n(1.1))+"</sup></sup>)<hr>抵达上限时获得1"+colorText('course')[2]+"<hr>准确来说,这并不算是资源,这只是对你的探索的一种记录<br><hr>"+gain+a+time+timeStop+gainAll+max+a2+maxAll
             },
         },
-        ResearchPoint:{
+        researchPoint:{
             name(){return '研究'},
             color(){return '#3dd3f8'},
-            max(){return n(10)},
+            max(){return n(1000).add(player.researchPaper.mul(500))},
             gain(){return n(0).mul(player.timeMod)},
             tooltip(){
                 let gain = '总计生产:<br>'
@@ -145,10 +146,28 @@ var main = {
                 let gainAll = "总计:(+"+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
                 let a2 = "基础:(+"+format(this.max())+")<br>"
+                let b2 = colorText('researchPaper')[2]+":(+"+format(player.researchPaper.mul(500))+")<br>"
                 let maxAll = "总计:(+"+format(this.max())+')'
-                return "研究世间万物的规律<hr>"+gain+time+timeStop+gainAll+max+a2+maxAll
+                return "研究世间万物的规律<hr>"+gain+time+timeStop+gainAll+max+a2+b2+maxAll
             },
-            unlocked(){return player.ResearchPoint.gt(0) || player.ResearchPointUnlocked=='true'},
+            unlocked(){return player.unknownManuscript[0]=='true'},
+        },
+        researchPaper:{
+            name(){return '手稿'},
+            color(){return 'rgb(52, 196, 201)'},
+            max(){return n(80)},
+            gain(){return n(0).mul(player.timeMod)},
+            tooltip(){
+                let gain = '总计生产:<br>'
+                let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
+                let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
+                let gainAll = "总计:(+"+format(this.gain())+'/秒)'
+                let max = '<hr>总计上限:<br>'
+                let a2 = "基础:(+"+format(n(80))+")<br>"
+                let maxAll = "总计:(+"+format(this.max())+')'
+                return "效果:(每个"+colorText('researchPaper')[2]+"增加"+format(n(500))+"的"+colorText('researchPoint')[2]+"上限)<hr>记录了许许多多的研究日志<hr>"+gain+time+timeStop+gainAll+max+a2+maxAll
+            },
+            unlocked(){return player.researchPaper.gt(0) || player.researchPaperUnlocked=='true'},
         },
         dirt:{
             name(){return '泥土'},
@@ -302,6 +321,7 @@ var main = {
                 addLog('*解锁<a class="Space">研究*</a>','news')
                 addLog('*解锁<a class="High" style="color: rgb(123, 25, 214)">虚空能量</a>*','news')
                 player.unknownManuscript[0] = 'true'
+                player.researchPaper = player.researchPaper.add(1)
             },
             tooltip(){return "一份未知的手稿,不时闪出<a class=\"High\" style=\"color: rgb(123, 25, 214)\">紫色粉末</a>,随后又消失在空气中,不知是不是粉末的原因,你总是看不清上面的字,只觉得身体燥热好像有什么能量要冲出体外<hr>解析"},
             unlocked(){return player.unknownManuscript[0]=='false' && player.course.gte(1)},

@@ -59,12 +59,13 @@ function format(decimal, precision = 2, small) {
         }
     }else if(player.countingMethod=='standard'){
         let e = n(decimal).log10().ceil()
+        let log = n(decimal).log10()
         let m = n(decimal).div(Decimal.pow(10, e))
         let max = 1
         let txt = ''
         let txtnum = ['','k','M','T','Qa','Qi','Sx','Sp','Oc','No','De','UnD','DD','TD','QaD','QiD','SxD','SpD','OcD','NoD','VT','UVT','DuT']
         for(let i=1;i<=max;i++){   
-            if(e >= (i*3+1)){
+            if(log >= (i*3)){
                 max += 1
             }else{
                 txt = txtnum[max-1]
@@ -78,11 +79,12 @@ function format(decimal, precision = 2, small) {
         return n(m).mul(n(10).pow(n(e).sub(n(max).sub(1).mul(3)))).toFixed(3) + txt
     }else if(player.countingMethod=='engineering'){
         let e = n(decimal).log10().ceil()
+        let log = n(decimal).log10()
         let m = n(decimal).div(Decimal.pow(10, e))
         let max = 1
         let showE = 0
         for(let i=1;i<=max;i++){   
-            if(e >= (i*3+1)){
+            if(log >= (i*3+1)){
                 max += 1
             }else{
                 showE = (max-1)*3
@@ -101,12 +103,13 @@ function format(decimal, precision = 2, small) {
         return n(m).mul(n(10).pow(n(e).sub(n(max).sub(1).mul(3)))).toFixed(3) + show
     }else if(player.countingMethod=='letter'){
         let e = n(decimal).log10().ceil()
+        let log = n(decimal).log10()
         let m = n(decimal).div(Decimal.pow(10, e))
         let max = 1
         let txt = ''
         let txtnum = ['','a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','o','v','w','x','y','z','A']
         for(let i=1;i<=max;i++){   
-            if(e >= (i*3+1)){
+            if(log >= (i*3+1)){
                 max += 1
             }else{
                 txt = txtnum[max-1]
