@@ -99,6 +99,88 @@ button:hover {
 .border {
     width:370px;
     height:2px;
-    position: absolute; 
-    border-radius: 20px;
+    position: absolute;
+    transition-duration: .2s;
+}
+
+.ResearchResource {
+    width:75px;
+}
+
+.ResearchResourceOtherBorder {
+    width:70px;
+    height:300px;
+    position: absolute;
+    border-radius: 3px;
+    transition-duration: .2s;
+    box-shadow: var(--researchColor) 0px 0px 10px 0px;
+}
+
+.ResearchResourceBorder {
+    width:70px;
+    height:300px;
+    position: absolute;
+    border-radius: 3px;
+    transition-duration: .2s;
+    box-shadow: #ba67e1 0px 0px 10px 0px;
+}
+
+.ResearchResourcePointBorder {
+    width:70px;
+    height:300px;
+    position: absolute;
+    border-radius: 3px;
+    transition-duration: .2s;
+    box-shadow: #3dd3f8 0px 0px 10px 0px;
+}
+
+.ResearchResourceOtherButton {
+    width:70px;
+    height:70px;
+    position: absolute;
+    margin-left:50px;
+    margin-top:330px;
+    border: 1px solid rgb(136, 136, 136);
+    box-shadow: var(--researchColor) 0px 4px 0px 0px;
+    transition-duration: 0.1s;
+    background-color: #fff;
+}
+
+.ResearchResourceOtherButton:active {
+    box-shadow: none;
+    transform: translateY(3px);
+}
+
+.ResearchResourceVoidButton {
+    width:70px;
+    height:70px;
+    position: absolute;
+    margin-left:250px;
+    margin-top:330px;
+    border: 1px solid rgb(136, 136, 136);
+    box-shadow: #ba67e1 0px 4px 0px 0px;
+    transition-duration: 0.1s;
+    background-color: #fff;
+}
+
+.ResearchResourceVoidButton:active {
+    box-shadow: none;
+    transform: translateY(3px);
+}
+
+.ResearchResourcePointButton {
+    width:70px;
+    height:70px;
+    position: absolute;
+    margin-left:450px;
+    margin-top:330px;
+    border: 1px solid rgb(136, 136, 136);
+    box-shadow: #3dd3f8 0px 4px 0px 0px;
+    transition-duration: 0.1s;
+    background-color: #fff;
+}
+
+.ResearchResourcePointButton:active {
+    box-shadow: none;
+    transform: translateY(3px);
 }

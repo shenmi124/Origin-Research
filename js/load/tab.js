@@ -5,15 +5,6 @@ var allWorkResource = 1
 var allResearch = 17
 var allWork = 1
 
-function mouseoverID(id){
-	$(id).mouseover(function(){
-		tooltip(id)
-		tooltipSel = self.setInterval(function(){
-			tooltip(id)
-		},50)
-	});
-}
-
 function tooltipMouseoverID(id){
 	$('#'+id).mouseover(function(){
 		tooltip(id)
@@ -24,9 +15,30 @@ function tooltipMouseoverID(id){
 }
 
 function baseLoad(){
-	if(player.flushLog=='true'){
+	if(player.flushLog==true){
 		player.logsType = ['none']
 	}
+	
+	let border = n(0).add(player.researchBar.div(player.researchBarMax.max(0.01)).mul(100))
+	getNotNumDoc('loadResearchResourceOtherBorder',`
+	<div class="ResearchResourceOtherBorder" style='background: var(--researchColor); margin-left:50px; margin-top:20px'></div>
+	<div class="ResearchResourceOtherBorder" style='border: 2px solid #282828; z-index: 100; border-radius: 5px; margin-left:48px; margin-top:18px'></div>
+	<div class="ResearchResourceOtherBorder void-bar" id="ResearchResourceOtherBorderID" style="background: #fff; margin-left:50px; width:72px; margin-top:20px; z-index: 10; clip-path: inset(0% 0% `+border+`% 0%);"></div>
+	`)
+
+	let border2 = n(0).add(player.voidBar.div(player.voidBarMax.max(0.01)).mul(100))
+	getNotNumDoc('loadResearchResourceBorder',`
+	<div class="ResearchResourceBorder" style='background: `+colorText('void')[0]+`; margin-left:250px; margin-top:20px'></div>
+	<div class="ResearchResourceBorder" style='border: 2px solid #282828; z-index: 100; border-radius: 5px; margin-left:248px; margin-top:18px'></div>
+	<div class="ResearchResourceBorder void-bar" id="ResearchResourceBorderID" style="background: #fff; margin-left:250px; width:72px; margin-top:20px; z-index: 10; clip-path: inset(0% 0% `+border2+`% 0%);"></div>
+	`)
+
+	let border3 = n(0).add(player.pointBar.div(player.pointBar.max(0.01)).mul(100))
+	getNotNumDoc('loadResearchResourcePointBorder',`
+	<div class="ResearchResourcePointBorder" style='background: #3dd3f8; margin-left:450px; margin-top:20px'></div>
+	<div class="ResearchResourcePointBorder" style='border: 2px solid #282828; z-index: 100; border-radius: 5px; margin-left:448px; margin-top:18px'></div>
+	<div class="ResearchResourcePointBorder void-bar" id="ResearchResourcePointBorderID" style="background: #fff; margin-left:450px; width:72px; margin-top:20px; z-index: 10; clip-path: inset(0% 0% `+border3+`% 0%);"></div>
+	`)
 
 	let mainStr = ''
 	for(let i in mainTab){
@@ -105,8 +117,8 @@ function firstTab(){
 	if(tab==true){
 		fistLoad()
 
-		if(player.firstGame=='false'){
-			player.firstGame = 'true'
+		if(player.firstGame==false){
+			player.firstGame = true
 			player.void = n(1)
 			addLog('头疼的厉害,你已经记不清你是如何来到这片荒芜,一望无边的荒地了...<br>脚下不知道是什么材质制成的地面,黑不溜秋的,十分坚硬却无比光滑,若隐若现的闪着<a class="High" style="color: rgb(123, 25, 214)">紫色的光</a>,像是病毒般扩散了出去,大概在十几米处才得以停止.<br>同时你注意到一些不同寻常的<a class="Space">能量</a>...','news')
 		}
@@ -126,9 +138,9 @@ function firstTab(){
 			for(let i in main['resource']){tooltipMouseoverID(i+"TooltipLoadResearchResource")}
 			for(let i in main['building']){tooltipMouseoverID(i+"TooltipLoadBuilding")}
 
-			mouseoverID("#treeTip")
-
-			mouseoverID("#noneButtonID")
+			tooltipMouseoverID("ResearchResourceOtherTooltip")
+			tooltipMouseoverID("ResearchResourceVoidTooltip")
+			tooltipMouseoverID("ResearchResourcePointTooltip")
 		});
 		Close('tab_research')
 		tab = false

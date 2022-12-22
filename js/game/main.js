@@ -38,7 +38,7 @@ var main = {
                 let maxAll = "总计:(+"+format(this.max())+') <-> (+'+formatTime(this.max())+')'
                 return "这个资源可能在未来也就是2个月前的现在获得,等等,现在是什么时间?<hr>离线时长超过20秒或暂停时获得同等"+colorText('time')[2]+"<br>"+colorText('time')[2]+"可以加速资源生产的时间流逝<br><hr>"+gain+a+timeStop+time+gainAll+max+a2+maxAll
             },
-            unlocked(){return player.time.gt(0) || player.timeUnlocked=='true'},
+            unlocked(){return player.time.gt(0) || player.timeUnlocked==true},
             otherText(){
                 return '<a id="time">时间洪流</a>'
             },
@@ -83,7 +83,7 @@ var main = {
             Class(){return 'High'},
             gain(){
                 let a = n(0)
-                if(player.unknownManuscript[0]=='true'){
+                if(player.unknownManuscript[0]==true){
                     a = n(player.void)
                 }
                 return a.mul(player.timeMod)
@@ -96,7 +96,7 @@ var main = {
                 let gainAll = "总计:("+format(this.gain())+'/秒)'
                 return "基础:("+colorText('void')[2]+")<hr>一种未知的能量<br><hr>"+gain+a+time+timeStop+gainAll
             },
-            unlocked(){return player.unknownManuscript[0]=='true'}
+            unlocked(){return player.unknownManuscript[0]==true}
         },
         course:{
             name(){return '探索历程'},
@@ -114,7 +114,7 @@ var main = {
             Class(){return 'Space'},
             gain(){
                 let a = n(0)
-                if(player.exploring=='true'){
+                if(player.exploring==true){
                     a = n(1)
                 }
                 return a.mul(player.timeMod)
@@ -150,7 +150,7 @@ var main = {
                 let maxAll = "总计:(+"+format(this.max())+')'
                 return "研究世间万物的规律<hr>"+gain+time+timeStop+gainAll+max+a2+b2+maxAll
             },
-            unlocked(){return player.unknownManuscript[0]=='true'},
+            unlocked(){return player.unknownManuscript[0]==true},
         },
         researchPaper:{
             name(){return '手稿'},
@@ -167,14 +167,14 @@ var main = {
                 let maxAll = "总计:(+"+format(this.max())+')'
                 return "效果:(每个"+colorText('researchPaper')[2]+"增加"+format(n(500))+"的"+colorText('researchPoint')[2]+"上限)<hr>记录了许许多多的研究日志<hr>"+gain+time+timeStop+gainAll+max+a2+maxAll
             },
-            unlocked(){return player.researchPaper.gt(0) || player.researchPaperUnlocked=='true'},
+            unlocked(){return player.researchPaper.gt(0) || player.researchPaperUnlocked==true},
         },
         dirt:{
             name(){return '泥土'},
             color(){return '#cf7004'},
             max(){return n(10).add(maxGainStoneWall()[0]).add(maxGainStoneWall()[0])},
             gain(){return n(dirtGainWithHands()).mul(player.timeMod)},
-            PR(){return n(1)},
+            PR(){return [n(1),n(1)]},
             tooltip(){
                 let gain = '总计生产:<br>'
                 let a = "手中流失:("+format(dirtGainWithHands())+'/秒)<br>'
@@ -208,7 +208,7 @@ var main = {
                 let maxAll = "总计:(+"+format(this.max())+')'
                 return "绿色的青草,或许可以做些有用的东西<hr>"+gain+a+b+c+timeStop+time+gainAll+max+a2+b2+c2+maxAll
             },
-            unlocked(){return player.grass.gt(0) || player.grassUnlocked=='true'},
+            unlocked(){return player.grass.gt(0) || player.grassUnlocked==true},
         },
         stone:{
             name(){return '石头'},
@@ -269,11 +269,11 @@ var main = {
         0:{
             name(){return '探索'},
             onClick(){
-                player.exploring = 'true'
+                player.exploring = true
                 addLog('你决定探索一下这片土地','action')
             },
             tooltip(){return "探索这片土地<br>(提示:<a style='color:red'>将鼠标对准资源名称可查看更多信息</a>)"},
-            unlocked(){return player.exploring=='false'},
+            unlocked(){return player.exploring==false},
         },
         1:{
             name(){return '采集泥土'},
@@ -320,11 +320,11 @@ var main = {
                 addLog('你将手按压在手稿上,霎时光芒聚显,手部传来了巨痛,你下意识想要缩手却发现神经已经麻痹...<br>痛感消失,手稿变得清晰可见,你貌似懂了些什么...<br>同时你注意到你貌似可以轻微的利用那虚空中的能量了.','action')
                 addLog('*解锁<a class="Space">研究*</a>','news')
                 addLog('*解锁<a class="High" style="color: rgb(123, 25, 214)">虚空能量</a>*','news')
-                player.unknownManuscript[0] = 'true'
+                player.unknownManuscript[0] = true
                 player.researchPaper = player.researchPaper.add(1)
             },
             tooltip(){return "一份未知的手稿,不时闪出<a class=\"High\" style=\"color: rgb(123, 25, 214)\">紫色粉末</a>,随后又消失在空气中,不知是不是粉末的原因,你总是看不清上面的字,只觉得身体燥热好像有什么能量要冲出体外<hr>解析"},
-            unlocked(){return player.unknownManuscript[0]=='false' && player.course.gte(1)},
+            unlocked(){return player.unknownManuscript[0]==false && player.course.gte(1)},
         },
     },
     building:{

@@ -16,10 +16,10 @@ function drawTree(id,id2,times){
 	if(times==null){times=0}
 	
 	for(let row=0;row<=times;row++){
-		if(player['Research'+id2[row].substr(4)+'Can']!='false'){
+		if(player['Research'+id2[row].substr(4)+'Can']!=false){
 			document.getElementById(id).style.display = ''
 		}
-		if(player['Research'+id2[row].substr(4)+'Can']=='false' || $('#'+id).css('display') == 'none'){
+		if(player['Research'+id2[row].substr(4)+'Can']==false || $('#'+id).css('display') == 'none'){
 			document.getElementById(id).style.display = 'none'
 			return
 		}

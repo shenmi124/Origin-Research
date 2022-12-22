@@ -1,11 +1,73 @@
 function researchTooltip(res_name){
-	return getTooDoc('研究'+colorText(res_name)[2]+'('+format(main['resource'][res_name]['PR']())+')<hr><small>以1:'+format(main['resource'][res_name]['PR']())+'的比例把全部'+colorText(res_name)[2]+'变为'+colorText('researchPoint')[2]+'<hr>可获得'+format(player[res_name].mul(main['resource'][res_name]['PR']()))+colorText('researchPoint')[2])
+	return getTooDoc('将你的研究类型改成'+colorText(res_name)[2]+'<hr><small>'+colorText(res_name)[2]+':质量'+main['resource'][res_name]['PR']()[0]+' 研究价值'+main['resource'][res_name]['PR']()[1]+' 总研究价值'+n(main['resource'][res_name]['PR']()[0]).mul(main['resource'][res_name]['PR']()[1])+'<hr>注意:切换类型将强制清空目前物质条')
 }
 
 function getResearchResourceID(id,res_name){
-	getNotNumDoc(id,`<tooltip id='`+res_name+`TooltipLoadResearchResource'><button onclick="player.researchPoint=player.researchPoint.add(player.`+res_name+`.mul(main['resource']['`+res_name+`']['PR']()));player.`+res_name+`=n(0);addLog('获得研究')">`+colorText(res_name)[1]+`</button></tooltip>`)
+	getNotNumDoc(id,`<tooltip id='`+res_name+`TooltipLoadResearchResource'><button class="ResearchResource" onclick="player.ResearchItem='`+res_name+`'">`+colorText(res_name)[1]+`</button></tooltip>`)
 }
 
-function ResearchResourceGain(){
+function ResearchResourceOther(){
+	let border = n(0).add(player.researchBar.div(player.researchBarMax.max(0.01)).mul(100))
 
+	player.researchBar = player.researchBar.add(player[player.ResearchItem].mul(main['resource'][player.ResearchItem]['PR']()[0]).mul(player.barToggle.mul(0.01)).min(player.researchBarMax.sub(player.researchBar).div(main['resource'][player.ResearchItem]['PR']()[0])))
+	player[player.ResearchItem] = player[player.ResearchItem].sub(player[player.ResearchItem].mul(main['resource'][player.ResearchItem]['PR']()[0]).mul(player.barToggle.mul(0.01)).min(player.researchBarMax.sub(player.researchBar).div(main['resource'][player.ResearchItem]['PR']()[0])))
+
+	getNotNumDoc('loadResearchResourceOtherBorder',`
+	<div class="ResearchResourceOtherBorder" style='background: var(--researchColor); margin-left:50px; margin-top:20px'></div>
+	<div class="ResearchResourceOtherBorder" style='border: 2px solid #282828; z-index: 100; border-radius: 5px; margin-left:48px; margin-top:18px'></div>
+	<div class="ResearchResourceOtherBorder void-bar" id="ResearchResourceOtherBorderID" style="background: #fff; margin-left:50px; width:72px; margin-top:20px; z-index: 10; clip-path: inset(0% 0% `+border+`% 0%);"></div>
+	`)
+}
+
+function ResearchResourceVoid(){
+	let border = n(0).add(player.voidBar.div(player.voidBarMax.max(0.01)).mul(100))
+	
+	let fill = n(player.voidEnergy).min(player.voidBarMax.sub(player.voidBar))
+	player.voidBar = player.voidBar.add(fill)
+	player.voidEnergy = player.voidEnergy.sub(fill)
+
+	getNotNumDoc('loadResearchResourceBorder',`
+	<div class="ResearchResourceBorder" style='background: `+colorText('void')[0]+`; margin-left:250px; margin-top:20px'></div>
+	<div class="ResearchResourceBorder" style='border: 2px solid #282828; z-index: 100; border-radius: 5px; margin-left:248px; margin-top:18px'></div>
+	<div class="ResearchResourceBorder void-bar" id="ResearchResourceBorderID" style="background: #fff; margin-left:250px; width:72px; margin-top:20px; z-index: 10; clip-path: inset(0% 0% `+border+`% 0%);"></div>
+	`)
+}
+
+function ResearchBar(){
+	let txt = player.researchBar.gt(0)&&player.voidBar.gt(0)&&player.researchBar.lt(player.researchBarMax) ? '(-'+format(n(1))+'/s)' : ''
+	getNotNumDoc('ResearchResourceOtherText',format(player.researchBar)+`<br>上限:`+format(player.researchBarMax)+'<br>'+colorText(player.ResearchItem)[2]+txt)
+	let border = n(0).add(player.researchBar.div(player.researchBarMax.max(0.01)).mul(100))
+	document.getElementById("ResearchResourceOtherBorderID").style.clipPath = 'inset(0% 0% '+border+'% 0%)'
+
+	getNotNumDoc('ResearchResourceVoidText',format(player.voidBar)+`<br>上限:`+format(player.voidBarMax)+'<br>'+colorText('voidEnergy')[2]+txt)
+	let border2 = n(0).add(player.voidBar.div(player.voidBarMax.max(0.01)).mul(100))
+	document.getElementById("ResearchResourceBorderID").style.clipPath = 'inset(0% 0% '+border2+'% 0%)'
+
+	let txt2 = player.researchBar.gt(0)&&player.voidBar.gt(0)&&player.researchBar.lt(player.researchBarMax) ? '(+'+format(main['resource'][player.ResearchItem]['PR']()[1])+'/s)' : ''
+	getNotNumDoc('ResearchResourcePointText',format(player.pointBar)+`<br>上限:`+format(player.pointBarMax)+'<br>'+colorText('researchPoint')[2]+txt2)
+	let border3 = n(0).add(player.pointBar.div(player.pointBarMax.max(0.01)).mul(100))
+	document.getElementById("ResearchResourcePointBorderID").style.clipPath = 'inset(0% 0% '+border3+'% 0%)'
+
+	getNotNumDoc("ResearchScaleToggle",formatScientific(player.barToggle,0)+'%')
+}
+
+function ResearchGain(){
+	if(player.researchBar.gt(0)&&player.voidBar.gt(0)&&player.ResearchItem!='none'&&player.researchBar.lt(player.researchBarMax)){
+		player.researchBar = player.researchBar.sub(n(1).mul(diff)).min(player.researchBarMax).max(0)
+		player.voidBar = player.voidBar.sub(n(1).mul(diff)).min(player.voidBarMax).max(0)
+		player.pointBar = player.pointBar.add(n(main['resource'][player.ResearchItem]['PR']()[1]).mul(diff)).min(player.researchBarMax).max(0)
+	}
+}
+
+function ResearchResourcePut(){
+	let border = n(0).add(player.pointBar.div(player.pointBarMax.max(0.01)).mul(100))
+
+	player.researchPoint = player.researchPoint.add(player.pointBar)
+	player.pointBar = n(0)
+
+	getNotNumDoc('loadResearchResourcePointBorder',`
+	<div class="ResearchResourcePointBorder" style='background: #3dd3f8; margin-left:450px; margin-top:20px'></div>
+	<div class="ResearchResourcePointBorder" style='border: 2px solid #282828; z-index: 100; border-radius: 5px; margin-left:448px; margin-top:18px'></div>
+	<div class="ResearchResourcePointBorder void-bar" id="ResearchResourcePointBorderID" style="background: #fff; margin-left:450px; width:72px; margin-top:20px; z-index: 10; clip-path: inset(0% 0% `+border+`% 0%);"></div>
+	`)
 }

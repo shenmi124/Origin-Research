@@ -1,10 +1,10 @@
 function autoSave(){
-	if(player.autoSave=="false"){
-		player.autoSave = "true"
-		player.saveTick = 'false'
+	if(player.autoSave==false){
+		player.autoSave = true
+		player.saveTick = false
 	}else{
-		player.autoSave = "false"
-		player.saveTick = 'false'
+		player.autoSave = false
+		player.saveTick = false
 	}
 }
 
@@ -15,20 +15,10 @@ function countingMethod(){
 	if(player.countingMethod=='letter'){player.countingMethod='scientific';return}
 }
 
-function noneButtonID(){
-	if(player.noneButtonID=='false'){
-		player.noneButtonID='true'
-	}else{
-		player.noneButtonID='false'
-	}
-	save()
-	location.reload()
-}
-
 function flushLog(){
-	if(player.flushLog=='false'){
-		player.flushLog='true'
+	if(player.flushLog==false){
+		player.flushLog=true
 	}else{
-		player.flushLog='false'
+		player.flushLog=false
 	}
 }

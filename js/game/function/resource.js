@@ -47,7 +47,7 @@ function getResourceID(id,res_name){
 	getNotNumDoc(id,`
 	<div class="resource-title" id="`+res_name+`ID" style="width: 70px;"></div>
 	<div class="resource-title" style="color: #888" id="`+res_name+`slashID">/</div>
-	<div class="resource-title" style="color: #888; width: 70px;" id="`+res_name+`MaxID"></div>
+	<div class="resource-title" style="color: #888; width: 80px;" id="`+res_name+`MaxID"></div>
 	<div class="resource-title" id="`+res_name+`GainID" style="width: 110px;"></div>
 	<div class="resource-title border" id="`+res_name+`Border2ID" style="background: `+colorText(res_name)[0]+`; z-index: -1; transition-duration: 0.2s; clip-path: inset(0% 0% 0% 0%);"></div>
 	`
@@ -59,21 +59,21 @@ function getResourceID(id,res_name){
 			document.getElementById(id+"TitleID").style.display = ''
 			document.getElementById(id+"ID").style.display = ''
 			getNotNumDoc(id+'Br',`<br>`)
-			player[res_name+'Unlock'] = 'true'
-			player[res_name+'Unlocked'] = 'true'
+			player[res_name+'Unlock'] = true
+			player[res_name+'Unlocked'] = true
 		}else{
 			document.getElementById(id+"OtherID").style.display = 'none'
 			document.getElementById(id+"TitleID").style.display = 'none'
 			document.getElementById(id+"ID").style.display = 'none'
 			getNotNumDoc(id+'Br',``)
-			player[res_name+'Unlock'] = 'false'
+			player[res_name+'Unlock'] = false
 		}
     }else{
 		document.getElementById(id+"TitleID").style.display = ''
 		document.getElementById(id+"ID").style.display = ''
 		getNotNumDoc(id+'Br',`<br>`)
-		player[res_name+'Unlock'] = 'true'
-		player[res_name+'Unlocked'] = 'true'
+		player[res_name+'Unlock'] = true
+		player[res_name+'Unlocked'] = true
 	}
 	if(main['resource'][res_name]['max']!=undefined){
 		let border = n(100).sub(player[res_name].div(main['resource'][res_name]['max']().max(0.01)).mul(100))

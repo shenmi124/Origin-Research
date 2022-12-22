@@ -22,7 +22,7 @@ function ResearchScheduleTooltip(id,things){
 }
 
 function getTooltipID(id,id2){
-	let a = player.noneButtonID=='true' ? '<br>ID:'+id.substr(10) : ''
+	let a = player.noneButtonID==true ? '<br>ID:'+id.substr(10) : ''
 	getNotDoc(id,`
 	<button id='`+id+`ID' class="tree" onclick="Researching('`+id.substr(4)+`')">`+id2+a+`</button>
 	`)
@@ -73,7 +73,7 @@ function getBr(){
 		}
 		if(main['resource'][i]['PR']!=undefined && unlocked){
 			researchResourceBr += 1
-			if(researchResourceBr%w === 0 && researchResourceBr!=0){
+			if(researchResourceBr%(w*3) === 0 && researchResourceBr!=0){
 				document.getElementById(i+'LoadResearchResourceBrID').style.display = ''
 			}else{
 				document.getElementById(i+'LoadResearchResourceBrID').style.display = 'none'
@@ -93,11 +93,15 @@ function getID(){
 
 	for(let i in main['resource']){
 		let unlocked = true
+		let PRUnlocked = true
 		if(main['resource'][i]['unlocked']!=undefined){
 			unlocked = main['resource'][i]['unlocked']()
 		}
+		if(main['resource'][i]['PRUnlocked']!=undefined){
+			PRUnlocked = main['resource'][i]['PRUnlocked']()
+		}
 		if(main['resource'][i]['PR']!=undefined){
-			ResearchResource(i+'LoadResearchResource',unlocked)
+			ResearchResource(i+'LoadResearchResource',unlocked && PRUnlocked)
 		}
 	}
 
@@ -123,6 +127,9 @@ function getID(){
 	document.body.style.setProperty('--logWidth', (window.innerWidth-450)*0.25);
 	document.body.style.setProperty('--logheight', window.innerHeight-63);
 
+	document.body.style.setProperty('--researchColor', colorText(player.ResearchItem)[0]);
+	document.body.style.setProperty('--researchColor2', colorText(player.ResearchItem)[3]);
+
 	getBr()
 	
 	for(let i in mainTab){
@@ -140,8 +147,8 @@ function getID(){
 				}
 			}
 			if(Unlock){
-				NotOmegaLoader([i+'TabShown'],'false')
-				player[i+'TabShown'] = 'true'
+				loader([i+'TabShown'],false)
+				player[i+'TabShown'] = true
 			}
 			getNotDoc(logs+"StyleLog",player[i+'TabShown'] ? logs2 : '')
 			if(mainTab[logs]['id']!=undefined){
@@ -152,7 +159,16 @@ function getID(){
 		}
 	}
 
-	getNotNumDoc("autoSave",player.autoSave=="true" ? "开" : "关")
+	ResearchBar()
+	ResearchGain()
+
+	if(player.unknownManuscript[0]==true){
+		Open('tab_research_button')
+	}else{
+		Close('tab_research_button')
+	}
+
+	getNotNumDoc("autoSave",player.autoSave==true ? "开" : "关")
 	if(player.countingMethod=='scientific'){
 		getNotNumDoc("countingMethod",'科学计数法')
 	}else if(player.countingMethod=='standard'){
@@ -162,13 +178,13 @@ function getID(){
 	}else if(player.countingMethod=='letter'){
 		getNotNumDoc("countingMethod",'字母计数法')
 	}
-	getNotNumDoc("flushLog",player.flushLog=="true" ? "开" : "关")
+	getNotNumDoc("flushLog",player.flushLog==true ? "开" : "关")
 }
 
 setInterval(function(){
 	t = new Date()
 	offlineTimeGain = n((Number(offlineTime.getTime())-player.offline)/1000)
-	if(player.offline.lte(n(Number(offlineTime.getTime())).sub(5000)) && player.firstGame=='true' && player.timeUnlock=='true'){
+	if(player.offline.lte(n(Number(offlineTime.getTime())).sub(5000)) && player.firstGame==true && player.timeUnlock==true){
 		let oldtime = n(player.time)
 		player.time = player.time.add(offlineTimeGain).min(main.resource.time.max())
 		addLog('您离线了'+formatTime(offlineTimeGain)+'并获得同等的'+colorText('time')[2]+
@@ -183,13 +199,13 @@ setInterval(function(){
 	diff=diff.mul(offlineBoost)
 	timestart=t.getTime()
 	
-	if(player.autoSave=="true"){
-		save()
+	if(player.autoSave==true){
+		save('Origin_Research')
 	}else if(player.saveTick!='false_save'){
-		player.saveTick = 'true'
+		player.saveTick = true
 	}
-	if(player.saveTick=='true'){
-		save()
+	if(player.saveTick==true){
+		save('Origin_Research')
 		player.saveTick = 'false_save'
 	}
 	firstTab()

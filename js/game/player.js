@@ -1,6 +1,18 @@
 function calcPlayer(){
-    NotOmegaLoader(['exploring'],'false')
-    NotOmegaLoader(['unknownManuscript'],['false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false','false'])
+    loader(['exploring'],false)
+    loader(['unknownManuscript'],[false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false])
+
+    loader(['ResearchItem'],'none')
+    loader(['researchBar'],n(0))
+    loader(['researchBarMax'],n(200))
+
+    loader(['voidBar'],n(0))
+    loader(['voidBarMax'],n(200))
+
+    loader(['pointBar'],n(0))
+    loader(['pointBarMax'],n(200))
+
+    loader(['barToggle'],n(100))
     
     baseLoader()
     
@@ -13,22 +25,22 @@ function baseLoader(){
 
     loader(['devSpeed'],n(1))
 
-    NotOmegaLoader(['firstGame'],"false")
+    loader(['firstGame'],false)
 
-    NotOmegaLoader(['logsType'],["none"])
+    loader(['logsType'],["none"])
 
-	NotOmegaLoader(['autoSave'],"true")
-	NotOmegaLoader(['saveTick'],"false")
-    NotOmegaLoader(['noneButtonID'],"false")
-	NotOmegaLoader(['countingMethod'],"standard")
-	NotOmegaLoader(['flushLog'],"true")
+	loader(['autoSave'],true)
+	loader(['saveTick'],false)
+    loader(['noneButtonID'],false)
+	loader(['countingMethod'],"standard")
+	loader(['flushLog'],true)
 }
 
 function superLoader(){
-    for(let   ii in main['resource']){
+    for(let ii in main['resource']){
 		loader([ii],n(0))
-        NotOmegaLoader([ii+'Unlock'],'false')
-        NotOmegaLoader([ii+'Unlocked'],'false')
+        loader([ii+'Unlock'],false)
+        loader([ii+'Unlocked'],false)
 	}
     for(let  ii in main['building']){
 		loader(['building'+ii],n(0))
