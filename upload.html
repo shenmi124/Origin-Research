@@ -9,6 +9,61 @@
             font-family: verdana;
             font-size: 16px;
             cursor: default;
+            background: rgb(250, 250, 250);
+        }
+
+        *::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        *::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            background-color: rgb(182, 182, 182);
+        }
+
+        .version {
+            position:static;
+            left: 4px;
+            bottom: 4px;
+            text-align: right;
+            font-family: verdana;
+            color:#000000;
+            text-shadow: 0 0 10px #000000;
+            border-radius: 9px;
+            font-size: 15px;
+        }
+
+        .first {
+            color:#414141;
+        }
+
+        .second {
+            color:#535353;
+        }
+        
+        .third {
+            color:#3e928e;
+        }
+
+        details {
+            font: 16px "Open Sans", "Arial", sans-serif;
+        }
+
+        details > summary {
+            padding: 2px 6px;
+            width: 15em;
+            background-color: #ddd;
+            border: none;
+            box-shadow: 3px 3px 4px black;
+        }
+
+        div > details {
+            border-radius: 0 0 3px 3px;
+            background-color: #ddd;
+            padding: 2px 6px;
+            margin: 0;
+            box-shadow: 3px 3px 4px black;
         }
     </style>
     <script>
@@ -29,37 +84,104 @@
             }
         }
     </script>
+
+	<script src="js/load/loading.js"></script>
+	<script src="js/load/jQ.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/load.css"/>
 </head>
 <body>
+	<div id="loading">
+		<div id="loading_bg">
+			<div class="loader">
+				加载中...
+			</div>
+		</div>
+	</div>
+    <a href="index.html" class="version">返回(关闭此页)</a>
     <div style="text-align: center;">
         <br>
         <h1>起源科技</h1>
     </div>
-    <div style="text-align: center;">
-        <h3>更新日志:</h3>
-        <big><big>v0.01</big></big><br>
-        完成了最基础的模板以及日志<br>
-        <big><big>v0.02</big></big><br>
-        重新制作UI<br>
-        <big>v0.023</big><br>
-        更多设置<br>
-        若有若无的背景介绍<br>
-        修整UI<br>
-        工坊模板<br>
-        优化研究<br>
-        时间通量<br>
-        <big>v0.023</big><br>
-        重新制作/策划游戏流程,修改背景<br>
-        加载动画<br>
-        <big><big>v0.03</big></big><br>
-        新的开始!<br>
-        <big>v0.031</big><br>
-        修复了计数法显示错误的bug<br>
-        增加了手稿资源<br>
-        更好的colorText函数<br>
-        <big><big>v0.04</big></big><br>
-        <big>研究系统重置完毕</big>
-        <big>color.js以及更好的colotText函数</big>
+    <div>
+        <details>
+            <summary><big><big><big><big>更新日志:</big></big></big></big></summary>
+            <details>
+                <summary class="first"><big><big><big>—v0.01—</big></big></big></summary>
+                <details>
+                    <summary class="second"><big><big>v0.01</big></big></summary>
+                    <div class="third"><br>
+                        <li>完成了最基础的模板以及日志<br><br>
+                    </div>
+                </details>
+            </details>
+            <details>
+            <summary class="first"><big><big><big>—v0.02—</big></big></big></summary>
+                <details>
+                <summary class="second"><big><big>v0.02</big></big></summary>
+                    <div class="third"><br>
+                        <li>重新制作UI<br><br>
+                    </div>
+                </details>
+                <details>
+                <summary class="second"><big><big>v0.023</big></big></summary>
+                    <div class="third"><br>
+                        <li>更多设置<br>
+                        <li>若有若无的背景介绍<br>
+                        <li>修整UI<br>
+                        <li>工坊模板<br>
+                        <li>优化研究<br>
+                        <li>时间通量<br><br>
+                    </div>
+                </details>
+                <details>
+                <summary class="second"><big><big>v0.024</big></big></summary>
+                    <div class="third"><br>
+                        <li>重新制作/策划游戏流程,修改背景<br>
+                        <li>加载动画<br><br>
+                    </div>
+                </details>
+            </details>
+            <details>
+            <summary class="first"><big><big><big>—v0.03—</big></big></big></summary>
+                <details>
+                <summary class="second"><big><big>v0.03</big></big></summary>
+                    <div class="third"><br>
+                        <li>新的开始!<br><br>
+                    </div>
+                </details>
+                <details>
+                <summary class="second"><big><big>v0.031</big></big></summary>
+                    <div class="third"><br>
+                        <li>修复了计数法显示错误的bug<br>
+                        <li>增加了手稿资源<br>
+                        <li>更好的colorText函数<br><br>
+                    </div>
+                </details>
+            </details>
+            <details>
+            <summary class="first"><big><big><big>—v0.04—</big></big></big></summary>
+                <details>
+                <summary class="second"><big><big>v0.04</big></big></summary>
+                    <div class="third"><br>
+                        <li>研究系统重置完毕<br>
+                        <li>color.js以及更好的colotText函数<br><br>
+                    </div>
+                </details>
+                <details>
+                <summary class="second"><big><big>v0.042</big></big></summary>
+                    <div class="third"><br>
+                        <li>修了一堆有的没得的bug<br>
+                        <li>把研究的浮动值去除了<br><br>
+                    </div>
+                </details>
+                <details>
+                <summary class="second"><big><big>v0.043</big></big></summary>
+                    <div class="third"><br>
+                        <li>重新制作更新日志UI<br><br>
+                    </div>
+                </details>
+            </details>
+        </details>
     </div>
 </body>
 </html>

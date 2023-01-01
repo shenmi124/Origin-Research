@@ -33,7 +33,7 @@ function baseLoad(){
 	<div class="ResearchResourceBorder void-bar" id="ResearchResourceBorderID" style="background: #fff; margin-left:250px; width:72px; margin-top:20px; z-index: 10; clip-path: inset(0% 0% `+border2+`% 0%);"></div>
 	`)
 
-	let border3 = n(0).add(player.pointBar.div(player.pointBar.max(0.01)).mul(100))
+	let border3 = n(0).add(player.pointBar.min(player.pointRealBar).div(player.pointBar.max(0.01)).mul(100))
 	getNotNumDoc('loadResearchResourcePointBorder',`
 	<div class="ResearchResourcePointBorder" style='background: #3dd3f8; margin-left:450px; margin-top:20px'></div>
 	<div class="ResearchResourcePointBorder" style='border: 2px solid #282828; z-index: 100; border-radius: 5px; margin-left:448px; margin-top:18px'></div>

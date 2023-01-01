@@ -1,10 +1,10 @@
 .resource-title.resource-name {
-    width: 100px;
+    width: 90px;
     cursor:help;
 }
 
 .resource-title.resource-onClick {
-    width: 100px;
+    width: 90px;
     cursor:pointer;
 }
 

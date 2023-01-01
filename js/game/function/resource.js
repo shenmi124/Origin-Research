@@ -45,10 +45,16 @@ function getResourceClick(res_name){
 
 function getResourceID(id,res_name){
 	getNotNumDoc(id,`
-	<div class="resource-title" id="`+res_name+`ID" style="width: 70px;"></div>
-	<div class="resource-title" style="color: #888" id="`+res_name+`slashID">/</div>
-	<div class="resource-title" style="color: #888; width: 80px;" id="`+res_name+`MaxID"></div>
-	<div class="resource-title" id="`+res_name+`GainID" style="width: 110px;"></div>
+	<div class="resource-title" id="`+res_name+`ID" style="width: 90px;"></div>
+	<div class="resource-title" style="width: 10px;">
+		<div class="resource-title" style="width: 10px; color: #888" id="`+res_name+`slashID">/</div>
+	</div>
+	<div class="resource-title" style="width: 90px;">
+		<div class="resource-title" style="color: #888; width: 90px;" id="`+res_name+`MaxID"></div>
+	</div>
+	<div class="resource-title" style="width: 110px;">
+		<div class="resource-title" id="`+res_name+`GainID" style="width: 110px;"></div>
+	</div>
 	<div class="resource-title border" id="`+res_name+`Border2ID" style="background: `+colorText(res_name)[0]+`; z-index: -1; transition-duration: 0.2s; clip-path: inset(0% 0% 0% 0%);"></div>
 	`
 	)

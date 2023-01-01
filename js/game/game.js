@@ -4,6 +4,12 @@ function firstDiff(){
         if(player.course.eq(1)){
             addLog('走了大概十几米,在一片黑色物质后便是一眼望不到头的泥土和荒草...<br>等等,你看见了一些不一样的东西.','news')
         }
+        if(player.course.eq(2)){
+            addLog('又走了几百米,你看见了一些石头.','news')
+        }
+        if(player.course.eq(3)){
+            addLog('一些铜矿,老实说在地表上看见金属真是好运.','news')
+        }
     }
 }
 

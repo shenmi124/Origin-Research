@@ -56,6 +56,8 @@ function format(decimal, precision = 2, small) {
             return regularFormat(decimal, precision)
         }else if(decimal.eq(0)){
             return n(0).toFixed(precision)
+        }else if(decimal.lt(0.01)){
+            return '<0.01'
         }
     }else if(player.countingMethod=='standard'){
         let e = n(decimal).log10().ceil()
@@ -76,6 +78,12 @@ function format(decimal, precision = 2, small) {
             return n(0).toFixed(3)
         }
 
+        if(decimal.lt(0.001)){
+            return '<0.001'
+        }
+
+        if(decimal)
+
         return n(m).mul(n(10).pow(n(e).sub(n(max).sub(1).mul(3)))).toFixed(3) + txt
     }else if(player.countingMethod=='engineering'){
         let e = n(decimal).log10().ceil()
@@ -95,12 +103,16 @@ function format(decimal, precision = 2, small) {
             return n(0).toFixed(3)
         }
         
+        if(decimal.lt(0.01)){
+            return '<0.01'
+        }
+        
         let show = ''
         if(showE>0){
             show = 'e' + showE
         }
 
-        return n(m).mul(n(10).pow(n(e).sub(n(max).sub(1).mul(3)))).toFixed(3) + show
+        return n(m).mul(n(10).pow(n(e).sub(n(max).sub(1).mul(3)))).toFixed(2) + show
     }else if(player.countingMethod=='letter'){
         let e = n(decimal).log10().ceil()
         let log = n(decimal).log10()
@@ -118,6 +130,10 @@ function format(decimal, precision = 2, small) {
 
         if(decimal.eq(0)){
             return n(0).toFixed(3)
+        }
+        
+        if(decimal.lt(0.001)){
+            return '<0.001'
         }
 
         return n(m).mul(n(10).pow(n(e).sub(n(max).sub(1).mul(3)))).toFixed(3) + txt
@@ -138,6 +154,8 @@ function formatScientific(decimal, precision = 2, small) {
         return regularFormat(decimal, precision)
     }else if(decimal.eq(0)){
         return n(0).toFixed(precision)
+    }else if(decimal.lt(0.01)){
+        return '<0.01'
     }
 }
 

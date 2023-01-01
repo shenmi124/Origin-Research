@@ -7,9 +7,11 @@ function calcPlayer(){
     loader(['researchBarMax'],n(200))
 
     loader(['voidBar'],n(0))
+    loader(['voidRealBar'],n(0))
     loader(['voidBarMax'],n(200))
 
     loader(['pointBar'],n(0))
+    loader(['pointRealBar'],n(0))
     loader(['pointBarMax'],n(200))
 
     loader(['barToggle'],n(100))

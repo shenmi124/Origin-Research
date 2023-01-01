@@ -104,7 +104,8 @@ var main = {
             Class(){return 'Space'},
             tooltip(){
                 let a = player.course.gte(1) ? "<hr>你的发现:<br>1.发现"+colorText('dirt')[2]+"<br>" : ''
-                let b = player.course.gte(2) ? "2.发现"+colorText('stone')[2]+"<br>" : ''
+                let b = player.course.gte(2) ? "2.发现"+colorText('stone')[2]+','+colorText('flint')[2]+"<br>" : ''
+                let c = player.course.gte(3) ? "2.发现"+colorText('stone')[2]+"<br>" : ''
                 return "对你探索的一种记录,每当你发现新物品时就会增加"+a+b
             },
         },
@@ -194,7 +195,7 @@ var main = {
             color(){return '#4DF10C'},
             max(){return n(20).add(garssGainGrassGarden()[1]).add(maxGainStoneWall()[1])},
             gain(){return n(garssGainGrassGarden()[0]).mul(player.timeMod)},
-            PR(){return n(1.5)},
+            PR(){return [n(0.8),n(1.5)]},
             tooltip(){
                 let gain = '总计生产:<br>'
                 let a = n(garssGainGrassGarden()[0]).gt(0) ? "来自建筑(草园):(+"+format(garssGainGrassGarden()[0])+"/秒)<br>" : ""
@@ -208,25 +209,25 @@ var main = {
                 let maxAll = "总计:(+"+format(this.max())+')'
                 return "绿色的青草,或许可以做些有用的东西<hr>"+gain+a+b+c+timeStop+time+gainAll+max+a2+b2+c2+maxAll
             },
-            unlocked(){return player.grass.gt(0) || player.grassUnlocked==true},
+            unlocked(){return false},
         },
         stone:{
             name(){return '石头'},
             color(){return '#868686'},
             max(){return n(30)},
             gain(){return n(0).mul(player.timeMod)},
-            PR(){return n(5)},
+            PR(){return [n(2.5),n(2)]},
             tooltip(){
                 let gain = '总计生产:<br>'
                 let timeStop = player.timeMod.eq(0) ? '时间暂停:(×'+format(player.timeMod)+')<br>' : ''
                 let time = player.timeMod.eq(2) ? '时间倍率:(×'+format(player.timeMod)+')<br>' : ''
                 let gainAll = "总计:(+"+format(this.gain())+'/秒)'
                 let max = '<hr>总计上限:<br>'
-                let a2 = "基础:(+30.00)<br>"
+                let a2 = "基础:(+"+format(n(30))+")<br>"
                 let maxAll = "总计:(+"+format(this.max())+')'
                 return "其实只是一些小石子<hr>"+gain+timeStop+time+gainAll+max+a2+maxAll
             },
-            unlocked(){return false},
+            unlocked(){return player.course.gte(2)},
         },
         flint:{
             name(){return '燧石'},
@@ -244,7 +245,7 @@ var main = {
                 let maxAll = "总计:(+"+format(this.max())+')'
                 return "十分锋利的小石子,或许可以做些工具<hr>"+gain+timeStop+time+gainAll+max+a2+maxAll
             },
-            unlocked(){return false},
+            unlocked(){return player.course.gte(2)},
         },
         wood:{
             name(){return '木头'},
@@ -270,7 +271,7 @@ var main = {
             name(){return '探索'},
             onClick(){
                 player.exploring = true
-                addLog('你决定探索一下这片土地','action')
+                addLog('你决定探索一下这片土地','news')
             },
             tooltip(){return "探索这片土地<br>(提示:<a style='color:red'>将鼠标对准资源名称可查看更多信息</a>)"},
             unlocked(){return player.exploring==false},
@@ -317,7 +318,7 @@ var main = {
         'manuscript0':{
             name(){return '未知手稿'},
             onClick(){
-                addLog('你将手按压在手稿上,霎时光芒聚显,手部传来了巨痛,你下意识想要缩手却发现神经已经麻痹...<br>痛感消失,手稿变得清晰可见,你貌似懂了些什么...<br>同时你注意到你貌似可以轻微的利用那虚空中的能量了.','action')
+                addLog('你将手按压在手稿上,霎时光芒聚显,手部传来了巨痛,你下意识想要缩手却发现神经已经麻痹...<br>痛感消失,手稿变得清晰可见,你貌似懂了些什么...<br>同时你注意到你貌似可以轻微的利用那虚空中的能量了.','news')
                 addLog('*解锁<a class="Space">研究*</a>','news')
                 addLog('*解锁<a class="High" style="color: rgb(123, 25, 214)">虚空能量</a>*','news')
                 player.unknownManuscript[0] = true
